@@ -92,14 +92,6 @@ export default {
       racunPaginate: this.$store.state.pagination.pageData
     }
   },
-  // created(){
-  //   if ( this.$store.state.pagination.isInitial  ) {
-  //     this.racun.forEach((item) => {
-  //       this.$store.commit("pagination/pushPageData", item );
-  //     })
-  //     this.$store.commit('pagination/initialCommit')
-  //   }
-  // },
   mounted() {
     //pastikan next page bernilai sesuai nilai terakhir setelah nuxt route
     this.nextPage = this.totalPage > 1 ? this.$store.state.pagination.nextPage : false ;

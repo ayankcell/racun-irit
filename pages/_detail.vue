@@ -8,7 +8,7 @@
         width="488"
         fit="cover"
         format="webp"
-        class="object-cover"
+        class="object-cover w-full"
       />
     </div>
     <div id="content" class="block items-center py-5">
@@ -17,7 +17,7 @@
           v-html="racun.title"
           class="text-xl font-semibold text-gray-700 flex flex-grow items-center"
         ></h1>
-        <button class="w-10 h-10 flex justify-center items-center">
+        <button class="w-12 h-12 flex justify-center items-center focus:outline-light-500" @click="socialShare">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             class="h-5 w-5"
@@ -36,9 +36,11 @@
         v-html="racun.content"
       ></div>
     </div>
+    <SocialShare :title="racun.title" :description="racun.excerpt.replace(/<[^>]*>/g,'') || racun.title" :url="`https://racun.irit.link/${racun.slug}`"/>
   </div>
 </template>
 <script>
+import { mapMutations } from "vuex";
 export default {
   async asyncData({ $http, store, params }) {
     const racun = await $http.$get(
@@ -62,6 +64,16 @@ export default {
               {name:'og:description', hid:'og:description', content:description}
           ]
       }
+  },
+  methods:{
+    ...mapMutations({
+      socialShare:'socialshare/open'
+    })
+  },
+  watch:{
+    '$store.state.socialshare.modalOpened': function(data){
+      this.isOpened = data
+    }
   }
 };
 </script>

@@ -1,6 +1,6 @@
 <template>
   <nav class="fixed z-2 top-0 left-0 w-full bg-white border-b-1">
-    <div class="max-w-md mx-auto relative flex justify-between py-3 px-2">
+    <div class="max-w-screen-md mx-auto relative flex justify-between py-3 px-2">
       <!-- hanya tampilkan di halaman detail ( singular ) -->
       <NuxtLink
         to="/"
@@ -22,10 +22,12 @@
       </NuxtLink>
 
       <div class="relative rounded-full w-10 h-10" v-if="isSingular">
-        <img
-          src="/assets/images/favicon.png"
+        <nuxt-img
+          src="https://sadiskon.files.wordpress.com/2022/03/favicon.png"
           width="32"
           height="32"
+          format="webp"
+          fit="contain"
           alt="logo Sadiskon.com"
           class="absolute left-0 top-0 w-full h-full rounded-full object-cover"
         />
