@@ -33,7 +33,7 @@
         />
       </div>
       <!-- hanya tampilkan di halaman index -->
-      <span id="helper" v-if="!isSingular"></span>
+      <div id="helper" class="flex justify-start items-center px-2 font-bold" v-if="!isSingular">IRIT.LINK</div>
       <!-- <fieldset class="flex-grow" v-if="!isSingular">
         <div class="relative">
           <span class="absolute inset-y-0 left-0 flex items-center pl-3">
