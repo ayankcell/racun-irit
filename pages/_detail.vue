@@ -1,21 +1,21 @@
 <template>
   <div>
-    <div class="rounded-lg w-full">
+    <div class="w-full">
       <nuxt-img
         :src="racun.featured_image"
-        alt="logo Sadiskon.com"
+        :alt="racun.title"
         height="488"
         width="488"
         fit="cover"
         format="webp"
-        class="rounded-lg object-cover"
+        class="object-cover"
       />
     </div>
     <div id="content" class="block items-center py-5">
-      <div class="flex justify-between">
+      <div class="flex justify-between itemx-center px-2">
         <h1
           v-html="racun.title"
-          class="text-xl font-semibold text-gray-700 flex-grow"
+          class="text-xl font-semibold text-gray-700 flex flex-grow items-center"
         ></h1>
         <button class="w-10 h-10 flex justify-center items-center">
           <svg

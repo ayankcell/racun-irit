@@ -161,7 +161,7 @@ export default {
     },
   },
   watch: {
-    $route: function () {
+    $route() {
       this.isSingular = this.$store.state.view.isSingular;
       this.menuOpen = false;
     },
