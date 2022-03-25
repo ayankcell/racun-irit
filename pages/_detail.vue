@@ -11,8 +11,8 @@
         class="object-cover w-full"
       />
     </div>
-    <div id="content" class="block items-center py-5">
-      <div class="flex justify-between itemx-center px-2">
+    <div id="content" class="block items-center">
+      <div class="flex justify-between itemx-center px-2 py-3">
         <h1
           v-html="racun.title"
           class="text-xl font-semibold text-gray-700 flex flex-grow items-center"

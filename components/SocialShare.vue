@@ -1,5 +1,5 @@
 <template>
-  <div :class="`${isOpened? 'fixed z-5 bg-opacity-50 top-0 left-0' :'bg-opacity-0'} transition-all ease-in-out duration-1000 w-full h-full bg-black`">
+  <div :class="`${isOpened? 'fixed z-5 bg-opacity-50 h-full' :'fixed bg-opacity-0 max-h-0'} transition-all ease-in-out duration-50 top-0 left-0 w-full bg-black`">
     <div
       :class="`${isOpened? 'top-0 opacity-100': '-top-65 opacity-0'} transition-all ease-in-out duration-400 relative block max-w-sm mx-auto p-5 bg-white rounded-br-2xl rounded-bl-2xl`"
     >
