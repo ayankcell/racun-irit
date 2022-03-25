@@ -51,8 +51,8 @@ export default {
       isOpened: this.$store.state.socialshare.modalOpened,
       sharing: {
         url: this.$props.url,
-        title: this.$props.title,
-        description: this.$props.description,
+        title: `Aku nemuin promo ${this.$props.title}`,
+        description: `${this.$props.description}`,
         twitterUser: "sadiskon",
       },
       networks: [
