@@ -4,14 +4,14 @@
       isOpened ? 'fixed z-5 bg-opacity-50 h-full' : 'fixed bg-opacity-0 max-h-0'
     } transition-all ease-in-out duration-50 top-0 left-0 w-full bg-black`"
   >
-  <div class="block absolute top-0 left-0 w-full h-full bg-transparent"  @click="close"></div>
+  <div class="racun-social_close-wrapper block absolute top-0 left-0 w-full h-full bg-transparent"  @click="close"></div>
     <div
       :class="`${
         isOpened ? 'top-0 opacity-100' : '-top-65 opacity-0'
       } transition-all ease-in-out duration-400 relative block max-w-sm mx-auto p-5 bg-white rounded-br-2xl rounded-bl-2xl`"
     >
       <button
-        class="absolute top-0 right-0 h-12 w-12 flex justify-center items-center"
+        class="racun-social_close-btn absolute top-0 right-0 h-12 w-12 flex justify-center items-center"
         @click="close"
       >
         <svg
@@ -39,13 +39,13 @@
         :title="sharing.title"
         :description="sharing.description"
         :twitterUser="sharing.twitterUser"
-        class="flex p-2 justify-center item-center gap-2 my-2 rounded-xl"
+        :class="`racun-social_${network.network} flex p-2 justify-center item-center gap-2 my-2 rounded-xl`"
       >
         <span v-html="network.icon" class="fill-white flex items-center"></span>
         <span class="text-white">{{ network.name }}</span>
       </ShareNetwork>
       <button
-        class="flex w-full p-2 justify-center item-center gap-2 my-2 rounded-xl bg-gray-700"
+        class="racun-social_copylink flex w-full p-2 justify-center item-center gap-2 my-2 rounded-xl bg-gray-700"
         @click="copyLink"
       >
         <svg

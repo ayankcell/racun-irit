@@ -44,7 +44,14 @@ export default {
     '@nuxtjs/gtm',
     ['nuxt-clipboard', { autoSetContainer: true }]
   ],
-  
+  //Progressive Web App
+  pwa: {
+    manifest: {
+      name: 'Racun Diskon',
+      lang: 'id',
+      useWebmanifestExtension: false
+    }
+  },
   // Google Tag Manager
   gtm: {
     id: 'GTM-K5ZNMV4'

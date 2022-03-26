@@ -20,7 +20,7 @@
           href="https://www.instagram.com/sadiskon"
           target="_blank"
           rel="noopener nofollow"
-          class="flex w-auto py-2 font-semibold justify-center mt-3 rounded-xl text-white bg-rose-500 capitalize transition-colors duration-200 transform hover:bg-rose-400 focus:bg-rose-400"
+          class="racun-btn_followig flex w-auto py-2 font-semibold justify-center mt-3 rounded-xl text-white bg-rose-500 capitalize transition-colors duration-200 transform hover:bg-rose-400 focus:bg-rose-400"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

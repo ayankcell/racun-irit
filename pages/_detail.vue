@@ -17,7 +17,7 @@
           v-html="racun.title"
           class="text-xl font-semibold text-gray-700 flex flex-grow items-center"
         ></h1>
-        <button class="w-12 h-12 flex justify-center items-center focus:outline-light-500" @click="socialShare">
+        <button class="racun-btn_social-modal w-12 h-12 flex justify-center items-center focus:outline-light-500" @click="socialShare">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             class="h-5 w-5"

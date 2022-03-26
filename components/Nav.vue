@@ -4,7 +4,7 @@
       <!-- hanya tampilkan di halaman detail ( singular ) -->
       <NuxtLink
         to="/"
-        class="flex justify-center items-center h-13 w-13"
+        class="flex justify-center items-center h-13 w-13 racun-nav_back"
         v-if="isSingular"
       >
         <svg
@@ -80,7 +80,7 @@
 
       <!-- tampilkan di semua halaman  -->
       <button
-        class="flex justify-center items-center h-13 w-13"
+        class="flex justify-center items-center h-13 w-13 racun-nav_toggle"
         @click="toggleMenu"
       >
         <svg
@@ -112,7 +112,7 @@
       >
         <a
           href="https://www.sadiskon.com"
-          class="flex px-4 py-3 text-gray-600 capitalize transition-colors duration-200 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
+          class="racun-nav_link-sds flex px-4 py-3 text-gray-600 capitalize transition-colors duration-200 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -132,7 +132,7 @@
           href="https://www.instagram.com/sadiskon"
           target="_blank"
           rel="noopener nofollow"
-          class="flex px-4 py-3 text-gray-600 capitalize transition-colors duration-200 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
+          class="racun-nav_link-ig flex px-4 py-3 text-gray-600 capitalize transition-colors duration-200 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

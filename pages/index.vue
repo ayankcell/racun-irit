@@ -5,7 +5,7 @@
       <div class="p-1 w-1/2 md:w-1/3" v-for="item of racun" :key="item.ID">
         <NuxtLink
           :to="`/${item.slug}/`"
-          class="block rounded-xl overflow-hidden shadow"
+          class="block rounded-xl overflow-hidden shadow racun-item_link"
         >
           <nuxt-img
             :src="item.featured_image"
@@ -23,7 +23,7 @@
       <div class="p-1 w-1/2 md:w-1/3" v-for="item of racunPaginate" :key="item.ID">
         <NuxtLink
           :to="`/${item.slug}/`"
-          class="block rounded-xl overflow-hidden shadow"
+          class="block rounded-xl overflow-hidden shadow racun-item_link"
         >
           <nuxt-img
             :src="item.featured_image"
