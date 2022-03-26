@@ -106,12 +106,6 @@ export default {
 }
 .wp-block-button__link:hover,.wp-block-button__link:focus {
   background: #eb6c7a;
-  display: block;
-  padding: 0.7rem 2rem;
-  color: #fff;
-  cursor: pointer;
-  font-weight: 500;
-  border-radius:10px;
 }
 /** button link icon */
 .wp-block-button__link:before{
