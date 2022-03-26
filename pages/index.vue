@@ -28,6 +28,7 @@
           <nuxt-img
             :src="item.featured_image"
             class="w-full h-full object-cover"
+            loading="lazy"
             height="189"
             width="189"
             format="webp"

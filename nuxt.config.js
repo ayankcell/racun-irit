@@ -32,7 +32,8 @@ export default {
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
     'nuxt-windicss',
-    '@nuxtjs/google-fonts'
+    '@nuxtjs/google-fonts',
+    '@nuxtjs/pwa',
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -40,8 +41,14 @@ export default {
     '@nuxt/image',
     '@nuxt/http',
     'vue-social-sharing/nuxt',
+    '@nuxtjs/gtm',
+    ['nuxt-clipboard', { autoSetContainer: true }]
   ],
-
+  
+  // Google Tag Manager
+  gtm: {
+    id: 'GTM-K5ZNMV4'
+  },
   // Google Fonts
 
   googleFonts: {

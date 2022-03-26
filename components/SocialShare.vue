@@ -1,7 +1,14 @@
 <template>
-  <div :class="`${isOpened? 'fixed z-5 bg-opacity-50 h-full' :'fixed bg-opacity-0 max-h-0'} transition-all ease-in-out duration-50 top-0 left-0 w-full bg-black`">
+  <div
+    :class="`${
+      isOpened ? 'fixed z-5 bg-opacity-50 h-full' : 'fixed bg-opacity-0 max-h-0'
+    } transition-all ease-in-out duration-50 top-0 left-0 w-full bg-black`"
+  >
+  <div class="block absolute top-0 left-0 w-full h-full bg-transparent"  @click="close"></div>
     <div
-      :class="`${isOpened? 'top-0 opacity-100': '-top-65 opacity-0'} transition-all ease-in-out duration-400 relative block max-w-sm mx-auto p-5 bg-white rounded-br-2xl rounded-bl-2xl`"
+      :class="`${
+        isOpened ? 'top-0 opacity-100' : '-top-65 opacity-0'
+      } transition-all ease-in-out duration-400 relative block max-w-sm mx-auto p-5 bg-white rounded-br-2xl rounded-bl-2xl`"
     >
       <button
         class="absolute top-0 right-0 h-12 w-12 flex justify-center items-center"
@@ -37,6 +44,45 @@
         <span v-html="network.icon" class="fill-white flex items-center"></span>
         <span class="text-white">{{ network.name }}</span>
       </ShareNetwork>
+      <button
+        class="flex w-full p-2 justify-center item-center gap-2 my-2 rounded-xl bg-gray-700"
+        @click="copyLink"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-6 w-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="white"
+          stroke-width="2"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"
+          />
+        </svg>
+        <span class="text-white">Salin Link</span>
+      </button>
+      <!-- copy success  -->
+      <div
+        :class="`absolute transition-all ease-in-out duration-200 ${isCopied? 'w-20 h-20 bg-opacity-70': 'w-0 h-0 bg-opacity-0'} rounded-lg bg-black top-40 mx-auto inset-x-0 flex justify-center items-center`"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-8 w-8"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="white"
+          stroke-width="2"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M5 13l4 4L19 7"
+          />
+        </svg>
+      </div>
     </div>
   </div>
 </template>
@@ -49,6 +95,7 @@ export default {
   data() {
     return {
       isOpened: this.$store.state.socialshare.modalOpened,
+      isCopied: false,
       sharing: {
         url: this.$props.url,
         title: `Aku nemuin promo ${this.$props.title}`,
@@ -81,14 +128,7 @@ export default {
 </svg>`,
           color: "#0088cc",
         },
-        {
-          network: "email",
-          name: "Email",
-          icon: `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"  viewBox="0 0 16 16">
-  <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2Zm13 2.383-4.708 2.825L15 11.105V5.383Zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741ZM1 11.105l4.708-2.897L1 5.383v5.722Z"/>
-</svg>`,
-          color: "#333333",
-        },
+
         {
           network: "twitter",
           name: "Twitter",
@@ -101,21 +141,30 @@ export default {
     };
   },
   methods: {
+    async copyLink() {
+      try {
+        await this.$copyText(this.$props.url);
+        this.isCopied = true
+        setTimeout(()=>{this.isCopied = false}, 1000)
+      } catch (e) {
+        console.error(e);
+      }
+    },
     ...mapMutations({
       close: "socialshare/close",
     }),
   },
-  head(){
-      return{
-          bodyAttrs:{
-              class: this.isOpened ? 'overflow-hidden' : ''
-          }
-      }
+  head() {
+    return {
+      bodyAttrs: {
+        class: this.isOpened ? "overflow-hidden" : "",
+      },
+    };
   },
-  watch:{
-      '$store.state.socialshare.modalOpened': function(data){
-          this.isOpened = data
-      }
-  }
+  watch: {
+    "$store.state.socialshare.modalOpened": function (data) {
+      this.isOpened = data;
+    },
+  },
 };
 </script>
