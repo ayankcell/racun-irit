@@ -82,15 +82,23 @@ export default {
   margin: 1rem auto;
 }
 .has-text-align-center{
-    text-align:center;
+  text-align:center;
 }
 .wp-block-button {
   display: block;
   text-align: center;
-  padding: 1rem;
 }
 .wp-block-button__link {
   background: #e85668;
+  display: block;
+  padding: 0.5rem;
+  color: #fff;
+  cursor: pointer;
+  font-weight: 500;
+  border-radius:10px;
+}
+.wp-block-button__link:hover,.wp-block-button__link:focus {
+  background: #eb6c7a;
   display: block;
   padding: 0.7rem 2rem;
   color: #fff;
@@ -109,5 +117,11 @@ export default {
   height:1.3rem;
   width:1.3rem;
   margin-right:1rem;
+}
+.racun-content .wp-block-embed{
+  margin:0;
+}
+.racun-content iframe{
+  max-width:100%;
 }
 </style>

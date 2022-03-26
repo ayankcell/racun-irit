@@ -12,15 +12,15 @@
         class="absolute left-0 top-0 w-full h-full rounded-full object-cover"
       />
     </div>
-    <h1 class="py-5 text-gray-800 font-semibold text-lg">Racun Irit Link by Sadiskon</h1>
+    <h1 class="py-5 text-gray-800 font-semibold text-lg">Racun Irit Link</h1>
     <div class="text-gray-500 text-center">
-      <p>Racun Produk Promo Paling Cuan.</p>
-      <p>Racun Shopee, Lazada, Tokopedia & Online Shop Lain</p>
+      <p>Racun Barang Promo di Shopee, Lazada, Tokopedia & Online Shop Lain</p>
+      
        <a
           href="https://www.instagram.com/sadiskon"
           target="_blank"
           rel="noopener nofollow"
-          class="flex px-4 py-3 text-sm font-semibold justify-center mt-3 rounded-xl text-white bg-sky-600 capitalize transition-colors duration-200 transform hover:bg-sky-500 focus:bg-sky-500"
+          class="flex w-auto py-2 font-semibold justify-center mt-3 rounded-xl text-white bg-rose-500 capitalize transition-colors duration-200 transform hover:bg-rose-400 focus:bg-rose-400"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
