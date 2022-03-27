@@ -12,7 +12,7 @@
         class="absolute left-0 top-0 w-full h-full rounded-full object-cover"
       />
     </div>
-    <h1 class="py-5 text-gray-800 font-semibold text-lg">Racun Irit Link</h1>
+    <h1 class="py-5 text-gray-800 font-semibold text-lg">Racun Diskon | Irit.Link</h1>
     <div class="text-gray-500 text-center">
       <p>Racun Barang Promo di Shopee, Lazada, Tokopedia & Online Shop Lain</p>
       

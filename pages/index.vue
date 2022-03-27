@@ -7,34 +7,51 @@
           :to="`/${item.slug}/`"
           class="block rounded-xl overflow-hidden shadow racun-item_link"
         >
-          <nuxt-img
-            :src="item.featured_image"
-            class="w-full h-full object-cover"
-            height="189"
-            width="189"
-            format="webp"
-            quality="80"
-            fit="cover"
-          />
+          <div class="ft_img_wrap w-full relative">
+            <!-- merchant tag  -->
+            <div
+              class="absolute z-2 w-full bottom-0 left-0 flex gap-1"
+              v-html="merchantTag(item.tags)"
+            ></div>
+            <!-- watermark overflow  -->
+            <div
+              class="absolute z-1 top-0 left-0 w-full h-full bg-light-400 bg-opacity-0 transition-opacity duration-300 hover:bg-opacity-30"
+            ></div>
+            <nuxt-img
+              :src="item.featured_image"
+              class="z-0 w-full object-cover"
+              height="189"
+              width="189"
+              format="webp"
+              quality="80"
+              fit="cover"
+            />
+          </div>
           <h2 v-html="item.title" class="p-2 truncate text-gray-800"></h2>
         </NuxtLink>
       </div>
       <!-- appended items  -->
-      <div class="p-1 w-1/2 md:w-1/3" v-for="item of racunPaginate" :key="item.ID">
+      <div
+        class="p-1 w-1/2 md:w-1/3"
+        v-for="item of racunPaginate"
+        :key="item.ID"
+      >
         <NuxtLink
           :to="`/${item.slug}/`"
-          class="block rounded-xl overflow-hidden shadow racun-item_link"
+          class="block rounded-xl overflow-hidden shadow racun-item_link ft_img_wrap"
         >
-          <nuxt-img
-            :src="item.featured_image"
-            class="w-full h-full object-cover"
-            loading="lazy"
-            height="189"
-            width="189"
-            format="webp"
-            quality="80"
-            fit="cover"
-          />
+          <div class="ft_img_wrap w-full">
+            <nuxt-img
+              :src="item.featured_image"
+              class="w-full object-cover"
+              loading="lazy"
+              height="189"
+              width="189"
+              format="webp"
+              quality="80"
+              fit="cover"
+            />
+          </div>
           <h2 v-html="item.title" class="p-2 truncate text-gray-800"></h2>
         </NuxtLink>
       </div>
@@ -75,8 +92,8 @@ export default {
     );
     //pagination helper
     const totalPage = Math.ceil(racunData.found / perPage);
-   // kalau jumlah halaman lebih dari 1 berarti next page = 2
-    const nextPage = totalPage > 1 ? store.state.pagination.nextPage : false ;
+    // kalau jumlah halaman lebih dari 1 berarti next page = 2
+    const nextPage = totalPage > 1 ? store.state.pagination.nextPage : false;
     // unset view as singular
     store.commit("view/isSingular", false);
 
@@ -88,14 +105,15 @@ export default {
       isLoading: false,
     };
   },
-  data(){
-    return{
-      racunPaginate: this.$store.state.pagination.pageData
-    }
+  data() {
+    return {
+      racunPaginate: this.$store.state.pagination.pageData,
+    };
   },
   mounted() {
     //pastikan next page bernilai sesuai nilai terakhir setelah nuxt route
-    this.nextPage = this.totalPage > 1 ? this.$store.state.pagination.nextPage : false ;
+    this.nextPage =
+      this.totalPage > 1 ? this.$store.state.pagination.nextPage : false;
   },
   methods: {
     async loadNext() {
@@ -104,17 +122,64 @@ export default {
         `${this.$store.state.baseHost}/posts/?number=${this.perPage}&page=${this.nextPage}`
       );
       // atur next page
-      const nextPage = this.totalPage > this.nextPage ? this.nextPage + 1 : false;
+      const nextPage =
+        this.totalPage > this.nextPage ? this.nextPage + 1 : false;
       this.$store.commit("pagination/setNext", nextPage);
       // push item ke existing data
       loadNext.posts.forEach((item) => {
-        console.log(item.title)
-        this.$store.commit('pagination/pushPageData', item )
+        console.log(item.title);
+        this.$store.commit("pagination/pushPageData", item);
       });
       // sembunyikan loading
       this.isLoading = false;
     },
-   
+    merchantColor(merchant) {
+      let bgCol = "#333";
+      switch (merchant) {
+        case "Lazada":
+          bgCol = "#100e6f";
+          break;
+        case "Shopee":
+          bgCol = "#ef472e";
+          break;
+        case "Tokopedia":
+          bgCol = "#3fab37";
+          break;
+        case "JD.ID":
+          bgCol = "#e71910";
+          break;
+        default:
+          bgCol = "#000";
+          break;
+      }
+      return bgCol;
+    },
+    merchantTag(merchants) {
+      let htmlTags = "";
+      const merchantArr = Object.entries(merchants);
+      merchantArr.map((tag, index) => {
+        if (index < 3) {
+          htmlTags += `<span
+                v-for="tag of item.tags"
+                :key="tag.ID"
+                class="text-xs p-1 text-white"
+                style="background-color:${this.merchantColor(tag[1].name)}"
+              >${tag[1].name}
+              </span>`;
+        }
+        if (index === 3) {
+          htmlTags += `<span
+                v-for="tag of item.tags"
+                :key="tag.ID"
+                class="text-xs p-1 text-white"
+                style="background-color:red"
+              > ${merchantArr.length - 3}+ 
+              </span>`;
+        }
+      });
+
+      return htmlTags;
+    },
   },
 
   watch: {
@@ -123,11 +188,6 @@ export default {
     },
     "$store.state.pagination.pageData": function () {
       this.racunPaginate = this.$store.state.pagination.pageData;
-      console.log(this.racun)
-      console.log(this.$store.state.pagination.pageData)
-    },
-    "$route": function (data) {
-      console.log("data");
     },
   },
   head() {

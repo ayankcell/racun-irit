@@ -6,7 +6,7 @@
   </div>
 </template>
 <style>
-/* .page-enter-active,
+.page-enter-active,
 .page-leave-active {
   transition: opacity 0.5s;
 }
@@ -22,5 +22,5 @@
 .layout-enter,
 .layout-leave-to {
   opacity: 0;
-} */
+}
 </style>
