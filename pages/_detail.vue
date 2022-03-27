@@ -102,6 +102,10 @@ export default {
   background-position: 50%;
   background-size: 200px 200px;
 }
+.racun-content h2{
+  font-size:1.3em;
+  font-weight: bold;
+}
 .racun-content p {
   margin: 1rem auto;
 }
@@ -138,6 +142,9 @@ export default {
 }
 .racun-content .wp-block-embed{
   margin:0;
+}
+.racun-content img{
+  margin:0 auto;
 }
 .racun-content iframe{
   max-width:100%;
