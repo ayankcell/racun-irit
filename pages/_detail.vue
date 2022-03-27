@@ -2,6 +2,7 @@
   <div>
     <div class="w-full ft_img_wrap">
       <nuxt-img
+    
         :src="racun.featured_image"
         :alt="racun.title"
         height="488"
@@ -36,7 +37,7 @@
         v-html="racun.content"
       ></div>
     </div>
-    <SocialShare :title="racun.title" :description="racun.excerpt.replace(/<[^>]*>/g,'') || racun.title" :url="`https://racun.irit.link/${racun.slug}`"/>
+    <SocialShare :title="racun.title" :merchant="merchants" :description="racun.excerpt.replace(/<[^>]*>/g,'') || racun.title" :url="`https://racun.irit.link/${racun.slug}`"/>
   </div>
 </template>
 <script>
@@ -56,12 +57,18 @@ export default {
   head(){
       const title = `${this.racun.title} | Irit.Link by Sadiskon`
       const description = this.racun.excerpt || this.racun.title
+      const image = this.racun.featured_image
       return{
           title: title,
           meta:[
               {name:'description', hid: 'description', content: description },
               {name:'og:title', hid:'og:title', content:title},
-              {name:'og:description', hid:'og:description', content:description}
+              {name:'og:description', hid:'og:description', content:description},
+              {name:'og:image', hid:'og:image', content:image},
+              {name:'twitter:title', hid:'twitter:title', content:title},
+              {name:'twitter:description', hid:'twitter:description', content:description},
+              {name:'twitter:image', hid:'twitter:image', content:image},
+              {name:'twitter:card', hid:'twitter:card', content:'summary'}
           ]
       }
   },
@@ -69,6 +76,16 @@ export default {
     ...mapMutations({
       socialShare:'socialshare/open'
     })
+  },
+   computed:{
+    merchants(){
+      const merchants = this.racun.tags
+      let mc = []
+      for(const merchant in merchants ){
+        mc.push(merchant)
+      }
+      return mc.join(', ')
+    }
   },
   watch:{
     '$store.state.socialshare.modalOpened': function(data){

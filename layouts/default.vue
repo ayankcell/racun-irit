@@ -1,6 +1,6 @@
 <template>
   <div class="max-w-screen-sm mx-auto bg-white">
-    <Nav />
+    <Nav/>
     <Nuxt class="mt-12"/>
     <Footer />
   </div>

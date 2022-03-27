@@ -25,6 +25,7 @@
               format="webp"
               quality="80"
               fit="cover"
+              :alt="item.title"
             />
           </div>
           <h2 v-html="item.title" class="p-2 truncate text-gray-800"></h2>
@@ -50,6 +51,7 @@
               format="webp"
               quality="80"
               fit="cover"
+              c
             />
           </div>
           <h2 v-html="item.title" class="p-2 truncate text-gray-800"></h2>

@@ -34,16 +34,23 @@ export default {
     'nuxt-windicss',
     '@nuxtjs/google-fonts',
     '@nuxtjs/pwa',
+    'nuxt-delay-hydration'
   ],
-
+  // Delay Hydration Config
+  delayHydration: {
+    mode: 'init',
+    debug: true
+  },
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     '@nuxt/image',
     '@nuxt/http',
     'vue-social-sharing/nuxt',
     '@nuxtjs/gtm',
+    
     ['nuxt-clipboard', { autoSetContainer: true }]
   ],
+  
   //Progressive Web App
   pwa: {
     manifest: {

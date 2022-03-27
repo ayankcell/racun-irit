@@ -5987,6 +5987,17 @@ nuxt-clipboard@^0.0.7:
   dependencies:
     vue-clipboard2 "^0.3.3"
 
+nuxt-delay-hydration@^0.3.2:
+  version "0.3.2"
+  resolved "https://registry.yarnpkg.com/nuxt-delay-hydration/-/nuxt-delay-hydration-0.3.2.tgz#1bc3eef5de028ee7823a52aa5fd16fd4f1babf4e"
+  integrity sha512-RqOInOauxmSSv2tkVRvFyoetlPKim7riqOlRMXRWcJv2puhu3GubE+vTPHuf34nGdINpgCFnwpc4cCRnmHJ0ew==
+  dependencies:
+    "@nuxt/kit" "npm:@nuxt/kit-edge@latest"
+    defu "^5.0.0"
+    lodash "^4.17.21"
+    upath "^2.0.1"
+    vue-lazy-hydration "^2.0.0-beta.4"
+
 nuxt-windicss@^2.2.8:
   version "2.2.8"
   resolved "https://registry.yarnpkg.com/nuxt-windicss/-/nuxt-windicss-2.2.8.tgz#4f3d85757daf00b54262db4334889cd74f52ce19"
@@ -8786,6 +8797,11 @@ vue-hot-reload-api@^2.3.0:
   version "2.3.4"
   resolved "https://registry.yarnpkg.com/vue-hot-reload-api/-/vue-hot-reload-api-2.3.4.tgz#532955cc1eb208a3d990b3a9f9a70574657e08f2"
   integrity sha512-BXq3jwIagosjgNVae6tkHzzIk6a8MHFtzAdwhnV5VlvPTFxDCvIttgSiHWjdGoTJvXtmRu5HacExfdarRcFhog==
+
+vue-lazy-hydration@^2.0.0-beta.4:
+  version "2.0.0-beta.4"
+  resolved "https://registry.yarnpkg.com/vue-lazy-hydration/-/vue-lazy-hydration-2.0.0-beta.4.tgz#11e7021a9bac003ea6ed74f132dcd0d025fafc1f"
+  integrity sha512-bhr7AxzrSEPed4cOawIeCxJmR8pglberR78x1zs0886xR+47/EXE9s0Ezss90CPINo8ApzUfA/r+SbNffn+t9w==
 
 vue-loader@^15.9.7:
   version "15.9.8"

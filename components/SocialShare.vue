@@ -80,14 +80,14 @@
 import { mapMutations } from "vuex";
 
 export default {
-  props: ["url", "title", "description"],
+  props: ["url", "title", "description","merchant"],
   data() {
     return {
       isOpened: this.$store.state.socialshare.modalOpened,
       isCopied: false,
       sharing: {
         url: this.$props.url,
-        title: `Aku nemuin promo ${this.$props.title}`,
+        title: `Aku nemuin promo ${this.$props.merchant} - ${this.$props.title}`,
         description: `${this.$props.description}`,
         twitterUser: "sadiskon",
       },
@@ -129,10 +129,15 @@ export default {
       ],
     };
   },
+ 
   methods: {
     async copyLink() {
       try {
-        await this.$copyText(this.$props.url);
+        await this.$copyText(`Aku nemuin promo ${this.$props.merchant} - ${this.$props.title}\n`
+        +this.$props.url +'\n'
+        +this.$props.description
+        );
+
         this.isCopied = true
         setTimeout(()=>{this.isCopied = false}, 1000)
       } catch (e) {
