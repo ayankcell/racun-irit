@@ -17,15 +17,16 @@
             <div
               class="absolute z-1 top-0 left-0 w-full h-full bg-light-400 bg-opacity-0 transition-opacity duration-300 hover:bg-opacity-30"
             ></div>
-            <nuxt-img
+            <nuxt-picture
               :src="item.featured_image"
-              class="z-0 w-full object-cover"
-              height="189"
-              width="189"
+              sizes="sm:140px md:190px"
+              height="180"
+              width="180"
               format="webp"
               quality="80"
               fit="cover"
               :alt="item.title"
+              :imgAttrs="{class:'z-0 w-full object-cover', loading: 'lazy'}"
             />
           </div>
           <h2 v-html="item.title" class="p-2 truncate text-gray-800"></h2>

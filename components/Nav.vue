@@ -1,5 +1,5 @@
 <template>
-  <nav class="fixed z-2 top-0 left-0 w-full bg-white border-b-1">
+  <nav class="fixed z-5 top-0 left-0 w-full bg-white border-b-1">
     <div class="max-w-screen-md mx-auto relative flex justify-between">
       <!-- hanya tampilkan di halaman detail ( singular ) -->
       <NuxtLink
