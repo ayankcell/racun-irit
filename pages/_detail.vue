@@ -76,9 +76,6 @@ export default {
       racunContent
     };
   },
-  mounted(){
-    console.log(this.racun)
-  },
   head() {
     const title = `${this.racun.title} | Irit.Link by Sadiskon`;
     const description = this.racun.excerpt || this.racun.title;

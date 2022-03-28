@@ -130,7 +130,6 @@ export default {
       this.$store.commit("pagination/setNext", nextPage);
       // push item ke existing data
       loadNext.posts.forEach((item) => {
-        console.log(item.title);
         this.$store.commit("pagination/pushPageData", item);
       });
       // sembunyikan loading

@@ -41,7 +41,7 @@ export default {
   // Delay Hydration Config
   delayHydration: {
     mode: 'init',
-    debug: true
+    // debug: true
   },
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
@@ -49,7 +49,6 @@ export default {
     '@nuxt/http',
     'vue-social-sharing/nuxt',
     '@nuxtjs/gtm',
-    
     ['nuxt-clipboard', { autoSetContainer: true }]
   ],
   
@@ -58,6 +57,7 @@ export default {
     manifest: {
       name: 'Racun Diskon',
       lang: 'id',
+      short_name: 'Racun Diskon',
       useWebmanifestExtension: false
     }
   },
