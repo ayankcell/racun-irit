@@ -18,7 +18,7 @@
               class="absolute z-1 top-0 left-0 w-full h-full bg-light-400 bg-opacity-0 transition-opacity duration-300 hover:bg-opacity-30"
             ></div>
             <nuxt-picture
-              :src="item.featured_image"
+              :src="`${item.featured_image}?resize=190%2C190`"
               sizes="sm:140px md:190px"
               height="180"
               width="180"
@@ -43,16 +43,16 @@
           class="block rounded-xl overflow-hidden shadow racun-item_link ft_img_wrap"
         >
           <div class="ft_img_wrap w-full">
-            <nuxt-img
-              :src="item.featured_image"
-              class="w-full object-cover"
-              loading="lazy"
-              height="189"
-              width="189"
+            <nuxt-picture
+              :src="`${item.featured_image}?resize=190%2C190`"
+              sizes="sm:140px md:190px"
+              height="180"
+              width="180"
               format="webp"
               quality="80"
               fit="cover"
-              c
+              :alt="item.title"
+              :imgAttrs="{class:'z-0 w-full object-cover', loading: 'lazy'}"
             />
           </div>
           <h2 v-html="item.title" class="p-2 truncate text-gray-800"></h2>

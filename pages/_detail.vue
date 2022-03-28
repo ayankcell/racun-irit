@@ -2,7 +2,7 @@
   <div>
     <div class="w-full ft_img_wrap">
       <nuxt-picture
-        :src="racun.featured_image"
+        :src="`${racun.featured_image}?resize=500%2C500`"
         :alt="racun.title"
         height="488"
         width="488"
