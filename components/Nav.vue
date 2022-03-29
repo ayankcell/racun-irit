@@ -23,7 +23,7 @@
 
       <div class="rounded-full w-13 h-13 p-2" v-if="isSingular">
         <nuxt-img
-          src="https://sadiskon.files.wordpress.com/2022/03/favicon.png"
+          src="https://sadiskon.files.wordpress.com/2022/03/favicon.png?resize=32%2C32"
           width="32"
           height="32"
           format="webp"

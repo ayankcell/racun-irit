@@ -60,7 +60,7 @@ export default {
     // set view as singular
     store.commit("view/isSingular", true);
     //
-    const $ = cheerio.load(racun.content)
+    const $ = cheerio.load(racun.content,null, false) // pastikan paramerter null, false supaya tidak otomatis menambahkan tag html dan body pada DOM
     $('.wp-block-image').each((i,elem)=>{
       const img = $(elem).find('img')
       const imgSrc = $(img).attr('src')
