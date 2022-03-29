@@ -4,7 +4,7 @@
     <div id="content" class="flex flex-wrap items-center px-3">
       <div class="p-1 w-1/2 md:w-1/3" v-for="item of racun" :key="item.ID">
         <NuxtLink
-          :to="`/${item.slug}/`"
+          :to="`/p/${item.slug}/`"
           class="block rounded-xl overflow-hidden shadow racun-item_link"
         >
           <div class="ft_img_wrap w-full relative">
@@ -15,7 +15,7 @@
             ></div>
             <!-- watermark overflow  -->
             <div
-              class="absolute z-1 top-0 left-0 w-full h-full bg-light-400 bg-opacity-0 transition-opacity duration-300 hover:bg-opacity-30"
+              class="absolute z-1 top-0 left-0 w-full h-full bg-black bg-opacity-0 transition-opacity duration-300 hover:bg-opacity-30"
             ></div>
             <nuxt-picture
               :src="`${item.featured_image}?resize=190%2C190`"
@@ -39,10 +39,19 @@
         :key="item.ID"
       >
         <NuxtLink
-          :to="`/${item.slug}/`"
-          class="block rounded-xl overflow-hidden shadow racun-item_link ft_img_wrap"
+          :to="`/p/${item.slug}/`"
+          class="block rounded-xl overflow-hidden shadow racun-item_link"
         >
-          <div class="ft_img_wrap w-full">
+          <div class="ft_img_wrap w-full relative">
+            <!-- merchant tag  -->
+            <div
+              class="absolute z-2 w-full bottom-0 left-0 flex gap-1"
+              v-html="merchantTag(item.tags)"
+            ></div>
+            <!-- watermark overflow  -->
+            <div
+              class="absolute z-1 top-0 left-0 w-full h-full bg-black bg-opacity-0 transition-opacity duration-300 hover:bg-opacity-30"
+            ></div>
             <nuxt-picture
               :src="`${item.featured_image}?resize=190%2C190`"
               sizes="sm:140px md:190px"
@@ -83,6 +92,9 @@
         />
       </svg>
     </button>
+    <div v-else class="block mx-auto text-center p-2 my-5 text-sm text-gray-400 border-1 rounded-lg">
+      Semua rekomendasi sudah ditampilkan
+    </div>
   </div>
 </template>
 <script>
@@ -91,7 +103,7 @@ export default {
     const perPage = store.state.perPage;
 
     const racunData = await $http.$get(
-      `${store.state.baseHost}/posts/?number=${perPage}`
+      `${store.state.baseHost}/posts/?number=${perPage}&fields=ID,title,featured_image,slug,tags`
     );
     //pagination helper
     const totalPage = Math.ceil(racunData.found / perPage);
@@ -122,7 +134,7 @@ export default {
     async loadNext() {
       this.isLoading = true;
       const loadNext = await this.$http.$get(
-        `${this.$store.state.baseHost}/posts/?number=${this.perPage}&page=${this.nextPage}`
+        `${this.$store.state.baseHost}/posts/?number=${this.perPage}&page=${this.nextPage}&fields=ID,title,featured_image,slug,tags`
       );
       // atur next page
       const nextPage =
