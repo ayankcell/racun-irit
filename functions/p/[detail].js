@@ -81,7 +81,7 @@ export const template = (racun)=>{
                            <path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd"></path>
                         </svg>
                      </a>
-                     <div class="rounded-full w-13 h-13 p-2"><img src="/assets/images/favicon.png" width="32" height="32" alt="logo Sadiskon.com" class="w-full h-full rounded-full object-cover"></div>
+                     <div class="rounded-full w-13 h-13 p-2"><img src="https://racunproduk.files.wordpress.com/2022/03/sadiskon_icon_rev_2020.png?resize=32%2C32" width="32" height="32" alt="logo Sadiskon.com" class="w-full h-full rounded-full object-cover"></div>
                      <!----> 
                      <button class="flex justify-center items-center h-13 w-13 racun-nav_toggle">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" class="h-6 w-6">
