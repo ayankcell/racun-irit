@@ -129,7 +129,7 @@
           Cari Kode Voucher
         </a>
         <a
-          href="https://www.instagram.com/sadiskon"
+          href="https://www.instagram.com/irit.link"
           target="_blank"
           rel="noopener nofollow"
           class="racun-nav_link-ig flex px-4 py-3 text-gray-600 capitalize transition-colors duration-200 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"

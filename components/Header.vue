@@ -20,7 +20,7 @@
 
       <div class="block w-full md:flex md:gap-1 md:justify-center">
         <a
-        href="https://www.instagram.com/sadiskon"
+        href="https://www.instagram.com/irit.link"
         target="_blank"
         rel="noopener nofollow"
         class="racun-btn_followig flex w-auto md:px-5 py-2 font-semibold justify-center mt-3 rounded-xl text-white bg-rose-500 capitalize transition-colors duration-200 transform hover:bg-rose-400 focus:bg-rose-400"
