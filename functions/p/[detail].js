@@ -98,7 +98,14 @@ export const template = (racun)=>{
                </nav>
                <div class="mt-12">
                   <div class="w-full ft_img_wrap">
-                      <img src="${racun.featured_image}?resize=500%2C500" width="488" height="488" alt="${racun.title}" class="object-cover w-full">
+                  <picture>
+                     <source srcset="${racun.featured_image}?resize=320%2C320 320w, ${racun.featured_image}?resize=500%2C500 640w, ${racun.featured_image}?resize=500%2C500 768w, ${racun.featured_image}?resize=500%2C500 1024w, ${racun.featured_image}?resize=500%2C500 1280w, ${racun.featured_image}?resize=500%2C500 1536w, ${racun.featured_image}?resize=500%2C500 1536w"
+                        sizes="(max-width: 320px) 320px, (max-width: 640px) 640px, (max-width: 768px) 768px, (max-width: 1024px) 1024px, (max-width: 1280px) 1280px, (max-width: 1536px) 1536px, 1536px">
+                     <img src="${racun.featured_image}?resize=500%2C500"
+                        srcset="${racun.featured_image}?resize=320%2C320 320w, ${racun.featured_image}?resize=500%2C500 640w, ${racun.featured_image}?resize=500%2C500 768w, ${racun.featured_image}?resize=500%2C500 1024w, ${racun.featured_image}?resize=500%2C500 1280w, ${racun.featured_image}?resize=500%2C500 1536w, ${racun.featured_image}?resize=500%2C500 1536w"
+                        sizes="(max-width: 320px) 320px, (max-width: 640px) 640px, (max-width: 768px) 768px, (max-width: 1024px) 1024px, (max-width: 1280px) 1280px, (max-width: 1536px) 1536px, 1536px"
+                        width="488" height="488" alt="Toples  Kue Kering" class="object-cover w-full">
+                  </picture>
                   </div>
                   <div id="content" class="block items-center">
                      <div class="flex justify-between itemx-center px-2 py-3">
