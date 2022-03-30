@@ -23,7 +23,7 @@ export async function onRequest(context) {
     };
     const racunFetch = await fetch(`${baseHost}/posts/slug:${slug}`, init)
     const racun = await gatherResponse(racunFetch, init)
-    return new Response(template(racun), {
+    return new Response( template(racun).replace(/[^\S\r\n]+/g,' '), { // replace new lines juga
         headers: {
             'content-type': 'text/html;charset=UTF-8'
         }
@@ -36,42 +36,42 @@ export const template = (racun)=>{
 <html lang="id">
    <head>
       <title>${racun.title} | Irit.Link by Sadiskon</title>
-      <meta data-n-head="ssr" charset="utf-8">
-      <meta data-n-head="ssr" data-hid="charset" charset="utf-8">
-      <meta data-n-head="ssr" data-hid="mobile-web-app-capable" name="mobile-web-app-capable" content="yes">
-      <meta data-n-head="ssr" data-hid="apple-mobile-web-app-title" name="apple-mobile-web-app-title" content="Racun Diskon">
-      <meta data-n-head="ssr" data-hid="og:type" name="og:type" property="og:type" content="website">
-      <meta data-n-head="ssr" data-hid="og:site_name" name="og:site_name" property="og:site_name" content="Racun Diskon">
-      <link data-n-head="ssr" rel="icon" type="image/x-icon" href="/favicon.png">
-      <link data-n-head="ssr" data-hid="gf-prefetch" rel="dns-prefetch" href="https://fonts.gstatic.com/">
-      <link data-n-head="ssr" data-hid="gf-preconnect" rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
-      <link data-n-head="ssr" data-hid="gf-preload" rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Roboto">
-      <link data-n-head="ssr" data-hid="shortcut-icon" rel="shortcut icon" href="/_nuxt/icons/icon_64x64.558a40.png">
-      <link data-n-head="ssr" data-hid="apple-touch-icon" rel="apple-touch-icon" href="/_nuxt/icons/icon_512x512.558a40.png" sizes="512x512">
+      <meta charset="utf-8">
+      <meta charset="utf-8">
+      <meta name="mobile-web-app-capable" content="yes">
+      <meta name="apple-mobile-web-app-title" content="Racun Diskon">
+      <meta name="og:type" property="og:type" content="website">
+      <meta name="og:site_name" property="og:site_name" content="Racun Diskon">
+      <link rel="icon" type="image/x-icon" href="/favicon.png">
+      <link rel="dns-prefetch" href="https://fonts.gstatic.com/">
+      <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+      <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Roboto">
+      <link rel="preload" as="script" href="https://cdn.jsdelivr.net/npm/umbrellajs">
+      <link rel="shortcut icon" href="/_nuxt/icons/icon_64x64.558a40.png">
+      <link rel="apple-touch-icon" href="/_nuxt/icons/icon_512x512.558a40.png" sizes="512x512">
       <script type="text/javascript" async="" src="https://www.googletagmanager.com/gtag/js?id=G-EXD84HQ4LQ&amp;l=dataLayer&amp;cx=c"></script><script async="" src="https://www.googletagmanager.com/gtm.js?id=GTM-K5ZNMV4"></script>
       <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto">
-      <noscript data-n-head="ssr" data-hid="gf-noscript">
+      <noscript >
          <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto">
       </noscript>
      <link rel="stylesheet" href="/assets/css/details.css">
-      <meta data-n-head="ssr" name="viewport" content="width=device-width, initial-scale=1">
-      <script data-n-head="ssr" data-hid="gtm-script">if(!window._gtm_init){window._gtm_init=1;(function(w,n,d,m,e,p){w[d]=(w[d]==1||n[d]=='yes'||n[d]==1||n[m]==1||(w[e]&&w[e][p]&&w[e][p]()))?1:0})(window,navigator,'doNotTrack','msDoNotTrack','external','msTrackingProtectionEnabled');(function(w,d,s,l,x,y){w[x]={};w._gtm_inject=function(i){if(w.doNotTrack||w[x][i])return;w[x][i]=1;w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s);j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i;f.parentNode.insertBefore(j,f);};w[y]('GTM-K5ZNMV4')})(window,document,'script','dataLayer','_gtm_ids','_gtm_inject')}</script><script data-n-head="ssr" data-hid="gf-script">(function(){var l=document.createElement('link');l.rel="stylesheet";l.href="https://fonts.googleapis.com/css2?family=Roboto";document.querySelector("head").appendChild(l);})();</script>
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <script >if(!window._gtm_init){window._gtm_init=1;(function(w,n,d,m,e,p){w[d]=(w[d]==1||n[d]=='yes'||n[d]==1||n[m]==1||(w[e]&&w[e][p]&&w[e][p]()))?1:0})(window,navigator,'doNotTrack','msDoNotTrack','external','msTrackingProtectionEnabled');(function(w,d,s,l,x,y){w[x]={};w._gtm_inject=function(i){if(w.doNotTrack||w[x][i])return;w[x][i]=1;w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s);j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i;f.parentNode.insertBefore(j,f);};w[y]('GTM-K5ZNMV4')})(window,document,'script','dataLayer','_gtm_ids','_gtm_inject')}</script><script>(function(){var l=document.createElement('link');l.rel="stylesheet";l.href="https://fonts.googleapis.com/css2?family=Roboto";document.querySelector("head").appendChild(l);})();</script>
       <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto">
-      <meta data-n-head="ssr" name="description" data-hid="description" content="${racun.excerpt}">
-      <meta data-n-head="ssr" name="og:title" data-hid="og:title" content="${racun.title} | Irit.Link by Sadiskon">
-      <meta data-n-head="ssr" name="og:description" data-hid="og:description" content="${racun.excerpt}">
-      <meta data-n-head="ssr" name="og:image" data-hid="og:image" content="${racun.featured_image}">
-      <meta data-n-head="ssr" name="twitter:title" data-hid="twitter:title" content="K${racun.title} | Irit.Link by Sadiskon">
-      <meta data-n-head="ssr" name="twitter:description" data-hid="twitter:description" content="${racun.excerpt}">
-      <meta data-n-head="ssr" name="twitter:image" data-hid="twitter:image" content="${racun.featured_image}">
-      <meta data-n-head="ssr" name="twitter:card" data-hid="twitter:card" content="summary">
+      <meta name="description" content="${racun.excerpt.replace( /(<([^>]+)>)/ig, '')}">
+      <meta name="og:title" content="${racun.title} | Irit.Link by Sadiskon">
+      <meta name="og:description"  content="${racun.excerpt.replace( /(<([^>]+)>)/ig, '')}">
+      <meta name="og:image"  content="${racun.featured_image}">
+      <meta name="twitter:title"  content="${racun.title} | Irit.Link by Sadiskon">
+      <meta name="twitter:description" content="${racun.excerpt.replace( /(<([^>]+)>)/ig, '')}">
+      <meta name="twitter:image" content="${racun.featured_image}">
+      <meta name="twitter:card"content="summary">
       <script src="https://cdn.jsdelivr.net/npm/umbrellajs"></script>
       <script src="/assets/js/clipboard.min.js"></script>
    </head>
    <body class="">
-      <noscript data-n-head="ssr" data-hid="gtm-noscript" data-pbody="true"><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K5ZNMV4&" height="0" width="0" style="display:none;visibility:hidden" title="gtm"></iframe></noscript>
+      <noscript data-pbody="true"><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K5ZNMV4&" height="0" width="0" style="display:none;visibility:hidden" title="gtm"></iframe></noscript>
       <div id="__nuxt">
-         <!---->
          <div id="__layout">
             <div class="max-w-screen-sm mx-auto bg-white">
                <nav class="fixed z-5 top-0 left-0 w-full bg-white border-b-1">
@@ -82,14 +82,12 @@ export const template = (racun)=>{
                         </svg>
                      </a>
                      <div class="rounded-full w-13 h-13 p-2"><img src="https://racunproduk.files.wordpress.com/2022/03/sadiskon_icon_rev_2020.png?resize=32%2C32" width="32" height="32" alt="logo Sadiskon.com" class="w-full h-full rounded-full object-cover"></div>
-                     <!----> 
                      <button class="flex justify-center items-center h-13 w-13 racun-nav_toggle">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" class="h-6 w-6">
                         <path id="menuiconopen" stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"></path>
                         <path id="menuiconclose" class="hidden" stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
                         </svg>
                      </button>
-                     <!---->
                      <div id="menudropdown" class="hidden absolute right-2 z-20 w-52 py-2 mt-13 bg-white rounded-md border-1 dark:bg-gray-800"><a href="https://www.sadiskon.com" class="racun-nav_link-sds flex px-4 py-3 text-gray-600 capitalize transition-colors duration-200 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-5 w-5"><path fill-rule="evenodd" d="M5 2a2 2 0 00-2 2v14l3.5-2 3.5 2 3.5-2 3.5 2V4a2 2 0 00-2-2H5zm2.5 3a1.5 1.5 0 100 3 1.5 1.5 0 000-3zm6.207.293a1 1 0 00-1.414 0l-6 6a1 1 0 101.414 1.414l6-6a1 1 0 000-1.414zM12.5 10a1.5 1.5 0 100 3 1.5 1.5 0 000-3z" clip-rule="evenodd"></path></svg>
                         Cari Kode Voucher
                      </a> <a href="https://www.instagram.com/sadiskon" target="_blank" rel="noopener nofollow" class="racun-nav_link-ig flex px-4 py-3 text-gray-600 capitalize transition-colors duration-200 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-5 w-5"><path fill-rule="evenodd" d="M14.243 5.757a6 6 0 10-.986 9.284 1 1 0 111.087 1.678A8 8 0 1118 10a3 3 0 01-4.8 2.401A4 4 0 1114 10a1 1 0 102 0c0-1.537-.586-3.07-1.757-4.243zM12 10a2 2 0 10-4 0 2 2 0 004 0z" clip-rule="evenodd"></path></svg>
@@ -101,7 +99,6 @@ export const template = (racun)=>{
                <div class="mt-12">
                   <div class="w-full ft_img_wrap">
                       <img src="${racun.featured_image}?resize=500%2C500" width="488" height="488" alt="${racun.title}" class="object-cover w-full">
-                     
                   </div>
                   <div id="content" class="block items-center">
                      <div class="flex justify-between itemx-center px-2 py-3">
@@ -114,7 +111,7 @@ export const template = (racun)=>{
                      </div>
                      <hr>
                      <div class="racun-content text-lg leading-normal w-full py-2 px-4">
-                        ${racun.content}
+                        ${racun.content.replace(/\s+/g, ' ')}
                      </div>
                   </div>
                   <div id="social-modal_wrapper" class="fixed bg-opacity-0 max-h-0 transition-all ease-in-out duration-50 z-5 top-0 left-0 w-full bg-black">
@@ -178,9 +175,7 @@ export const template = (racun)=>{
             </div>
          </div>
       </div>
-
-  
-    <script>
+    <script type="text/javascript">
     u('.racun-nav_toggle').on('click',function(){
       u('#menuiconopen, #menuiconclose, #menudropdown').toggleClass('hidden')
     })
@@ -192,7 +187,6 @@ export const template = (racun)=>{
       u('#social-modal_wrapper').addClass('bg-opacity-0, max-h-0').removeClass('bg-opacity-50,h-full')
       u('#social-btns').addClass('-top-100 ,opacity-0').removeClass('top-0 ,opacity-100')
     })
-    //clipboard
     var clipboard = new ClipboardJS('.racun-social_copylink')
     clipboard.on('success',function(e){
        u('#copycheck').removeClass('w-0, h-0, bg-opacity-0').addClass('w-20, h-20, bg-opacity-70')
@@ -200,7 +194,6 @@ export const template = (racun)=>{
          u('#copycheck').addClass('w-0, h-0, bg-opacity-0').removeClass('w-20, h-20, bg-opacity-70')
        },1000)
     })
-    //share buttons
     u('.share-network-whatsapp').on('click',function(){
        sharePopup('whatsapp')
     })
@@ -213,34 +206,26 @@ export const template = (racun)=>{
    u('.share-network-telegram').on('click',function(){
       sharePopup('telegram')
    })
-
    function sharePopup(network) {
-      var url = 'https://racun.irit.link/${racun.slug}'
+      var url = 'https://racun.irit.link/p/${racun.slug}/'
       var mc = '${merchant(racun.tags)}'
       var title = '${racun.title}'
-      var excerpt = '${encodeURIComponent(racun.excerpt)}'
+      var excerpt = '${encodeURIComponent(racun.excerpt.replace( /(<([^>]+)>)/ig, ''))}'
       var msg = encodeURIComponent('Aku nemuin promo ') + mc + ' - ' + title + excerpt
-  
-      //whatsapp
       if (network == 'whatsapp') {
           url = 'https://api.whatsapp.com/send?text=' + msg
       }
-      //facebook
       if(network == 'facebook'){
           url = 'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(url)+'&title='+encodeURIComponent( title)+'&description='+encodeURIComponent(excerpt)
       }
-      //twitter
       if(network == 'twitter'){
           url = 'https://twitter.com/intent/tweet?text='+encodeURIComponent(title)+'&url='+encodeURIComponent( url)+'&via=sadiskon'
       }
-      //telegram
       if(network == 'telegram'){
           url = 'https://t.me/share/url?url='+encodeURIComponent(url)+'&text='+msg
       }
-  
       window.open(url, '','popup=yes,width=500,height=400')
   }
-    
     </script>
     </body>
     </html>
