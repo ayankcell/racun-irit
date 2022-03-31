@@ -1,17 +1,16 @@
-export async function gatherResponse(response) {
+async function gatherResponse(response) {
    const { headers } = response;
    const contentType = headers.get('content-type') || '';
-
    if (contentType.includes('application/json')) {
-      return await response.json();
+     return JSON.stringify(await response.json());
    } else if (contentType.includes('application/text')) {
-      return response.text();
+     return response.text();
    } else if (contentType.includes('text/html')) {
-      return response.text();
+     return response.text();
    } else {
-      return response.text();
+     return response.text();
    }
-}
+ }
 export async function onRequest(context) {
    const baseHost = 'https://iritlink.hack.id/wp-json/wp/v2'
    // // Contents of context object
@@ -33,12 +32,12 @@ export async function onRequest(context) {
       //    const mc = await gatherResponse(merchant, init)
       //    merchants.push(mc.name)
       // }
-
+      // console.log(racun)
       // racun.tags = merchants
 
       return new Response(racun, { headers: { 'content-type': ' application/json;charset=UTF-8' } })
    } catch (error) {
-      return new Response('Terjadi kesalahan '+error.toString() , { headers: { 'content-type': 'text/plain;charset=UTF-8' } })
+      return new Response('Terjadi kesalahan '+ error.toString() , { headers: { 'content-type': 'text/plain;charset=UTF-8' } })
    }
 
 }
