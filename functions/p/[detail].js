@@ -37,8 +37,9 @@ export async function onRequest(context) {
 
 
    // racun[0].tags = merchants
+   //.replace(/[^\S\r\n]+/g, ' ')
 
-   return new Response(template(racun[0]).replace(/[^\S\r\n]+/g, ' '), { // replace new lines juga
+   return new Response(template(racun[0]), { // replace new lines juga
       headers: {
          'content-type': 'text/html;charset=UTF-8'
       }
@@ -177,7 +178,7 @@ export const template = (racun) => {
                            </span>
                            <span class="text-white">Twitter</span>
                         </a>
-                        <button class="racun-social_copylink flex w-full p-2 justify-center item-center gap-2 my-2 rounded-xl bg-gray-700" data-clipboard-text="Aku nemuin promo ${merchants} - ${racun.title.rendered} https://racun.irit.link/${racun.slug}">
+                        <button class="racun-social_copylink flex w-full p-2 justify-center item-center gap-2 my-2 rounded-xl bg-gray-700" data-clipboard-text="Aku nemuin promo ${racun.title.rendered} https://racun.irit.link/p/${racun.slug}/">
                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="white" class="h-5 w-5">
                               <path fill-rule="evenodd" d="M12.586 4.586a2 2 0 112.828 2.828l-3 3a2 2 0 01-2.828 0 1 1 0 00-1.414 1.414 4 4 0 005.656 0l3-3a4 4 0 00-5.656-5.656l-1.5 1.5a1 1 0 101.414 1.414l1.5-1.5zm-5 5a2 2 0 012.828 0 1 1 0 101.414-1.414 4 4 0 00-5.656 0l-3 3a4 4 0 105.656 5.656l1.5-1.5a1 1 0 10-1.414-1.414l-1.5 1.5a2 2 0 11-2.828-2.828l3-3z" clip-rule="evenodd"></path>
                            </svg>
@@ -230,7 +231,7 @@ export const template = (racun) => {
    })
    function sharePopup(network) {
       var url = 'https://racun.irit.link/p/${racun.slug}/'
-      var mc = '${racun.tags.join(', ')}'
+      var mc = ''
       var title = '${racun.title.rendered}'
       var excerpt = '${encodeURIComponent(racun.excerpt.rendered.replace(/(<([^>]+)>)/ig, ''))}'
       var msg = encodeURIComponent('Aku nemuin promo ') + mc + ' - ' + title + excerpt
