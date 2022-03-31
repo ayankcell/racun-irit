@@ -26,19 +26,19 @@ export async function onRequest(context) {
    try {
       racunFetch = await fetch(`${baseHost}/posts/${slug}`, init)
       let racun = await gatherResponse(racunFetch, init)
-      let merchants = []
+      // let merchants = []
 
-      for (const tag of racun.tags) {
-         const merchant = await fetch(`${baseHost}/tags/${tag}?_fields=name`, init)
-         const mc = await gatherResponse(merchant, init)
-         merchants.push(mc.name)
-      }
+      // for (const tag of racun.tags) {
+      //    const merchant = await fetch(`${baseHost}/tags/${tag}?_fields=name`, init)
+      //    const mc = await gatherResponse(merchant, init)
+      //    merchants.push(mc.name)
+      // }
 
-      racun.tags = merchants
+      // racun.tags = merchants
 
       return new Response(template(racun), { headers: { 'content-type': 'text/html;charset=UTF-8' } })
    } catch (error) {
-      return new Response('Terjadi kesalahan', { headers: { 'content-type': 'text/html;charset=UTF-8' } })
+      return new Response('Terjadi kesalahan '+error.toString() , { headers: { 'content-type': 'text/html;charset=UTF-8' } })
    }
 
 }
