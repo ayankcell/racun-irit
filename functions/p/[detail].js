@@ -18,7 +18,7 @@ export async function onRequest(context) {
    const slug = params.detail
    const init = {
       headers: {
-         'content-type': 'text/html;charset=UTF-8',
+         'content-type': 'application/json;charset=UTF-8',
       },
    };
    let racunFetch = []
