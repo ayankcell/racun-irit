@@ -19,7 +19,7 @@ export async function onRequest(context) {
       //template(racun[0]).replace(/[^\S\r\n]+/g,' ')
       
 
-      return new Response( response.ok , { // replace new lines juga
+      return new Response( response.type , { // replace new lines juga
          headers: {
             'content-type': 'text/plain;charset=UTF-8'
          }
