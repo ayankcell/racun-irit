@@ -37,7 +37,7 @@ export async function onRequestGet({params}) {
          pairs.push(pair[1])
       }
 
-      return new Response( pairs.toString()+'<br> Status: '+response.statusText, { headers: { 'content-type': 'text/html;charset=UTF-8' } });
+      return new Response( response.error().toString(), { headers: { 'content-type': 'text/html;charset=UTF-8' } });
    } catch (error) {
       return new Response(error.toString(),{headers:{'content-type':'text/plain;charset=UTF-8'}})
    }
