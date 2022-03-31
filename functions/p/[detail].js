@@ -2,27 +2,43 @@ export async function gatherResponse(response) {
    const { headers } = response;
    const contentType = headers.get('content-type') || '';
    if (contentType.includes('application/json')) {
-     return JSON.stringify(await response.json());
+      return await response.json();
    } else if (contentType.includes('application/text')) {
-     return response.text();
+      return response.text();
    } else if (contentType.includes('text/html')) {
-     return response.text();
+      return response.text();
    } else {
-     return response.text();
+      return response.text();
    }
- }
+}
 
- async function handleRequest({contex}) {
+export async function onRequest(context) {
    const baseHost = 'https://iritlink.hack.id/wp-json/wp/v2'
+   const { params } = context
    const init = {
-     headers: {
-       'content-type': 'application/json;charset=UTF-8',
-     },
+      headers: {
+         'content-type': 'application/json;charset=UTF-8',
+      },
    };
-   const response = await fetch(`${baseHost}/posts/?slug=${slug}`, init);
-   const results = await gatherResponse(response);
-   return new Response(results, init);
- }
+   try {
+      const response = await fetch(`${baseHost}/posts/?slug=${params.detail}`, init);
+      const results = await gatherResponse(response);
+     
+      let merchants = []
+      for (const tag of results[0].tags) {
+         const merchant = await fetch(`${baseHost}/tags/${tag}?_fields=name`, init)
+         const mc = await gatherResponse(merchant, init)
+         merchants.push(mc.name)
+      }
+      results[0].tags = merchants
+      
+
+      return new Response(template(results[0]), { headers: { 'content-type': 'text/html;charset=UTF-8' } });
+   } catch (error) {
+      return new Response(error.toString(),{headers:{'content-type':'text/plain;charset=UTF-8'}})
+   }
+
+}
 
 
 export const template = (racun) => {
@@ -209,7 +225,7 @@ export const template = (racun) => {
    })
    function sharePopup(network) {
       var url = 'https://racun.irit.link/p/${racun.slug}/'
-      var mc = ''
+      var mc = '${racun.tags.join(', ')}'
       var title = '${racun.title.rendered}'
       var excerpt = '${encodeURIComponent(racun.excerpt.rendered.replace(/(<([^>]+)>)/ig, ''))}'
       var msg = encodeURIComponent('Aku nemuin promo ') + mc + ' - ' + title + excerpt
