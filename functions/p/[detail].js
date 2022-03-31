@@ -1,6 +1,7 @@
 export async function gatherResponse(response) {
    const { headers } = response;
    const contentType = headers.get('content-type') || '';
+
    if (contentType.includes('application/json')) {
       return await response.json();
    } else if (contentType.includes('application/text')) {
@@ -12,19 +13,19 @@ export async function gatherResponse(response) {
    }
 }
 export async function onRequest(context) {
-   const baseHost = 'https://iritlink.hack.id/wp-json/wp/v2'
-   // Contents of context object
-   const { params } = context;
-   const slug = params.detail
-   const init = {
-      headers: {
-         'content-type': 'text/html;charset=UTF-8',
-      },
-   };
-   const racunFetch = await fetch(`${baseHost}/posts/?slug=${slug}`, init)
-   let racun = await gatherResponse(racunFetch, init)
+   // const baseHost = 'https://iritlink.hack.id/wp-json/wp/v2'
+   // // Contents of context object
+   // const { params } = context;
+   // const slug = params.detail
+   // const init = {
+   //    headers: {
+   //       'content-type': 'text/html;charset=UTF-8',
+   //    },
+   // };
+   // const racunFetch = await fetch(`${baseHost}/posts/?slug=${slug}`, init)
+   // let racun = await gatherResponse(racunFetch, init)
 
-   return new Response(racun[0].title.rendered , { headers: {'content-type': 'text/html;charset=UTF-8'}})
+   return new Response( 'Halo..', { headers: {'content-type': 'text/html;charset=UTF-8'}})
 }
 
 
