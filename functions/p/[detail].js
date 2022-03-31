@@ -7,14 +7,14 @@ export async function onRequest(context) {
  
    try {
 
-      const response = await fetch(`${baseHost}/posts?slug=${slug}`,{
+      const response = await fetch(`${baseHost}/posts`,{
          method: 'GET',
          mode: 'cors',
          headers:{
             'Content-Type': 'application/json'
          },
       })
-      const headers = response.headers.get('Content-Type')
+      const racun = await response.json()
       // const racun = await racunFetch.json()
       console.log(headers)
 
