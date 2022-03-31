@@ -13,13 +13,13 @@ export async function onRequest(context) {
    try {
 
       const response = await fetch(`${baseHost}/posts/?slug=${slug}`, init )
-      const {headers} = response;
+      const {headers, status, ok, body} = response;
       const contentType = headers.get('x-wp-total') || 'kosong'
 
       //template(racun[0]).replace(/[^\S\r\n]+/g,' ')
       
 
-      return new Response(  contentType , init );
+      return new Response(  `${contentType} ${status} ${ok} ` , init );
 
    } catch (error) {
       return new Response('Terjadi kesalahan: '+error.toString())
