@@ -27,13 +27,13 @@ export async function onRequest(context) {
     let merchants = []
     for(const tag of racun[0].tags){
        const merchant = await fetch(`${baseHost}/tags/${tag}?_fields=name`)
+       const mc =await gatherResponse(merchant)
        
-       merchants.push((await merchant.json()).name)
+       merchants.push(mc.name)
     }
-    merchants = merchants.join(', ')
 
 
-    return new Response( template(racun[0],merchants).replace(/[^\S\r\n]+/g,' '), { // replace new lines juga
+    return new Response( template(racun[0] , merchants.join(', ')).replace(/[^\S\r\n]+/g,' '), { // replace new lines juga
         headers: {
             'content-type': 'text/html;charset=UTF-8'
         }
