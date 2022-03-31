@@ -224,7 +224,7 @@ export const template = (racun) => {
       sharePopup('telegram')
    })
    function sharePopup(network) {
-      var url = 'https://racun.irit.link/p/${racun.slug}/'
+      var url = 'http://racun.irit.link/p/${racun.slug}/'
       var mc = '${racun.tags.join(', ')}'
       var title = '${racun.title.rendered}'
       var excerpt = '${encodeURIComponent(racun.excerpt.rendered.replace(/(<([^>]+)>)/ig, ''))}'
