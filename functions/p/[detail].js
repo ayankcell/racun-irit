@@ -9,7 +9,6 @@ export async function onRequest(context) {
 
       const response = await fetch(`${baseHost}/posts`,{
          method: 'GET',
-         mode: 'cors',
          headers:{
             'Content-Type': 'application/json'
          },
