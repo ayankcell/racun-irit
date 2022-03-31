@@ -46,7 +46,7 @@ export async function onRequest(context) {
 }
 
 
-export const template = (racun, merchants) => {
+export const template = (racun) => {
    return `<!doctype html>
 <html lang="id">
    <head>
