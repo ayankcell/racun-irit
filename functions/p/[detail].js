@@ -14,7 +14,7 @@ export async function onRequest(context) {
          },
       })
       const {headers} = response;
-      const contentType = headers.get('content-type') || ''
+      const contentType = headers.get('content-type') || 'kosong'
 
       //template(racun[0]).replace(/[^\S\r\n]+/g,' ')
       
