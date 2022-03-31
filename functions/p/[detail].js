@@ -1,49 +1,32 @@
-export async function gatherResponse(response) {
-    const { headers } = response;
-    const contentType = headers.get('content-type') || '';
-    if (contentType.includes('application/json')) {
-        return await response.json();
-    } else if (contentType.includes('application/text')) {
-        return response.text();
-    } else if (contentType.includes('text/html')) {
-        return response.text();
-    } else {
-        return response.text();
-    }
-}
 export async function onRequest(context) {
-    const baseHost = 'https://iritlink.hack.id/wp-json/wp/v2'
-    // Contents of context object
-    const { params } = context;
-    const slug = params.detail
-    const init = {
-        headers: {
-            'content-type': 'text/html;charset=UTF-8',
-        },
-    };
-    const racunFetch = await fetch(`${baseHost}/posts/?slug=${slug}`, init)
-    const racun = await gatherResponse(racunFetch, init)
+   const baseHost = 'https://iritlink.hack.id/wp-json/wp/v2'
+   // const baseHost = 'https://public-api.wordpress.com/rest/v1.1/sites/racunproduk.wordpress.com'
+   // Contents of context object
+   const { params } = context;
+   const slug = params.detail
+ 
+   try {
 
-    let merchants = []
-    for(const tag of racun[0].tags){
-       const merchant = await fetch(`${baseHost}/tags/${tag}?_fields=name`)
-       
-       merchants.push((await merchant.json()).name)
-    }
-    merchants = merchants.join(', ')
+      const racunFetch = await fetch(`${baseHost}/posts?slug=${slug}`)
+      const racun = await racunFetch.json()
 
+      //template(racun[0]).replace(/[^\S\r\n]+/g,' ')
 
-    return new Response( template(racun[0],merchants).replace(/[^\S\r\n]+/g,' '), { // replace new lines juga
-        headers: {
+      return new Response( template(racun[0]).replace(/[^\S\r\n]+/g,' '), { // replace new lines juga
+         headers: {
             'content-type': 'text/html;charset=UTF-8'
-        }
-    });
+         }
+      });
+
+   } catch (error) {
+      return new Response('Terjadi kesalahan: '+error.toString())
+   }
+   
 }
 
 
-export const template = (racun,merchants)=>{
-    return `
-<!doctype html>
+export const template = (racun) => {
+   return `<!doctype html>
 <html lang="id">
    <head>
       <title>${racun.title.rendered} | Irit.Link by Sadiskon</title>
@@ -69,12 +52,12 @@ export const template = (racun,merchants)=>{
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <script >if(!window._gtm_init){window._gtm_init=1;(function(w,n,d,m,e,p){w[d]=(w[d]==1||n[d]=='yes'||n[d]==1||n[m]==1||(w[e]&&w[e][p]&&w[e][p]()))?1:0})(window,navigator,'doNotTrack','msDoNotTrack','external','msTrackingProtectionEnabled');(function(w,d,s,l,x,y){w[x]={};w._gtm_inject=function(i){if(w.doNotTrack||w[x][i])return;w[x][i]=1;w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s);j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i;f.parentNode.insertBefore(j,f);};w[y]('GTM-K5ZNMV4')})(window,document,'script','dataLayer','_gtm_ids','_gtm_inject')}</script><script>(function(){var l=document.createElement('link');l.rel="stylesheet";l.href="https://fonts.googleapis.com/css2?family=Roboto";document.querySelector("head").appendChild(l);})();</script>
       <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto">
-      <meta name="description" content="${racun.excerpt.rendered.replace( /(<([^>]+)>)/ig, '')}">
+      <meta name="description" content="${racun.excerpt.rendered.replace(/(<([^>]+)>)/ig, '')}">
       <meta name="og:title" content="${racun.title.rendered} | Irit.Link by Sadiskon">
-      <meta name="og:description"  content="${racun.excerpt.rendered.replace( /(<([^>]+)>)/ig, '')}">
+      <meta name="og:description"  content="${racun.excerpt.rendered.replace(/(<([^>]+)>)/ig, '')}">
       <meta name="og:image"  content="${racun.jetpack_featured_media_url}">
       <meta name="twitter:title"  content="${racun.title.rendered} | Irit.Link by Sadiskon">
-      <meta name="twitter:description" content="${racun.excerpt.rendered.replace( /(<([^>]+)>)/ig, '')}">
+      <meta name="twitter:description" content="${racun.excerpt.rendered.replace(/(<([^>]+)>)/ig, '')}">
       <meta name="twitter:image" content="${racun.jetpack_featured_media_url}">
       <meta name="twitter:card"content="summary">
       <script src="https://cdn.jsdelivr.net/npm/umbrellajs"></script>
@@ -173,7 +156,7 @@ export const template = (racun,merchants)=>{
                            </span>
                            <span class="text-white">Twitter</span>
                         </a>
-                        <button class="racun-social_copylink flex w-full p-2 justify-center item-center gap-2 my-2 rounded-xl bg-gray-700" data-clipboard-text="Aku nemuin promo ${merchants} - ${racun.title.rendered} https://racun.irit.link/${racun.slug}">
+                        <button class="racun-social_copylink flex w-full p-2 justify-center item-center gap-2 my-2 rounded-xl bg-gray-700" data-clipboard-text="Aku nemuin promo - ${racun.title.rendered} https://racun.irit.link/${racun.slug}">
                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="white" class="h-5 w-5">
                               <path fill-rule="evenodd" d="M12.586 4.586a2 2 0 112.828 2.828l-3 3a2 2 0 01-2.828 0 1 1 0 00-1.414 1.414 4 4 0 005.656 0l3-3a4 4 0 00-5.656-5.656l-1.5 1.5a1 1 0 101.414 1.414l1.5-1.5zm-5 5a2 2 0 012.828 0 1 1 0 101.414-1.414 4 4 0 00-5.656 0l-3 3a4 4 0 105.656 5.656l1.5-1.5a1 1 0 10-1.414-1.414l-1.5 1.5a2 2 0 11-2.828-2.828l3-3z" clip-rule="evenodd"></path>
                            </svg>
@@ -226,9 +209,9 @@ export const template = (racun,merchants)=>{
    })
    function sharePopup(network) {
       var url = 'https://racun.irit.link/p/${racun.slug}/'
-      var mc = '${merchants}'
+      var mc = ''
       var title = '${racun.title.rendered}'
-      var excerpt = '${encodeURIComponent(racun.excerpt.rendered.replace( /(<([^>]+)>)/ig, ''))}'
+      var excerpt = '${encodeURIComponent(racun.excerpt.rendered.replace(/(<([^>]+)>)/ig, ''))}'
       var msg = encodeURIComponent('Aku nemuin promo ') + mc + ' - ' + title + excerpt
       if (network == 'whatsapp') {
           url = 'https://api.whatsapp.com/send?text=' + msg

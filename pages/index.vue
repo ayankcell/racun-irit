@@ -2,7 +2,7 @@
   <div>
     <Header />
     <div id="content" class="flex flex-wrap items-center px-3">
-      <div class="p-1 w-1/2 md:w-1/3" v-for="item of racun" :key="item.ID">
+      <div class="p-1 w-1/2 md:w-1/3" v-for="item of racun" :key="item.id">
         <NuxtLink
           :to="`/p/${item.slug}/`"
           class="block rounded-xl overflow-hidden shadow racun-item_link"
@@ -46,7 +46,7 @@
       <div
         class="p-1 w-1/2 md:w-1/3"
         v-for="item of racunPaginate"
-        :key="item.ID"
+        :key="item.id"
       >
         <NuxtLink
           :to="`/p/${item.slug}/`"
@@ -126,7 +126,7 @@ export default {
     const perPage = store.state.perPage;
 
     const racunData = await $http.get(
-      `/posts/?per_page=${perPage}&_fields=ID,title,jetpack_featured_media_url,slug,tags`
+      `/posts/?per_page=${perPage}&_fields=id,title,jetpack_featured_media_url,slug,tags`
     );
     let racun = await racunData.json();
     //loop masing-masing postingan
@@ -179,7 +179,7 @@ export default {
     async loadNext() {
       this.isLoading = true;
       const loadNext = await this.$http.get(
-        `/posts/?per_page=${this.perPage}&page=${this.nextPage}&_fields=ID,title,jetpack_featured_media_url,slug,tags`
+        `/posts/?per_page=${this.perPage}&page=${this.nextPage}&_fields=id,title,jetpack_featured_media_url,slug,tags`
       );
       let nextPageData = await loadNext.json();
       // untuk menampilkan data tags
