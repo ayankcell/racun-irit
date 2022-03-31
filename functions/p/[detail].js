@@ -7,12 +7,12 @@ export async function onRequest(context) {
  
    try {
 
-      const racunFetch = await fetch(`${baseHost}/posts?slug=${slug}`)
-      const racun = await racunFetch.json()
+      // const racunFetch = await fetch(`${baseHost}/posts?slug=${slug}`)
+      // const racun = await racunFetch.json()
 
       //template(racun[0]).replace(/[^\S\r\n]+/g,' ')
 
-      return new Response( template(racun[0]).replace(/[^\S\r\n]+/g,' '), { // replace new lines juga
+      return new Response( slug , { // replace new lines juga
          headers: {
             'content-type': 'text/html;charset=UTF-8'
          }
