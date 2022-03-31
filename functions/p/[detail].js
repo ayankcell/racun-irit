@@ -24,26 +24,7 @@ export async function onRequest(context) {
    const racunFetch = await fetch(`${baseHost}/posts/?slug=${slug}`, init)
    let racun = await gatherResponse(racunFetch, init)
 
-   // let merchants = []
-   // try {
-   //    for (const tag of racun[0].tags) {
-   //       const merchant = await fetch(`${baseHost}/tags/${tag}?_fields=name`, init)
-   //       const mc = await gatherResponse(merchant, init)
-   //       merchants.push(mc.name)
-   //    }
-   // } catch (e) {
-   //    console.log(e)
-   // }
-
-
-   // racun[0].tags = merchants
-   //.replace(/[^\S\r\n]+/g, ' ')
-
-   return new Response(template(racun[0]), { // replace new lines juga
-      headers: {
-         'content-type': 'text/html;charset=UTF-8'
-      }
-   });
+   return new Response(racun[0].title.rendered , { headers: {'content-type': 'text/html;charset=UTF-8'}})
 }
 
 
