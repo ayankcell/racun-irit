@@ -13,19 +13,34 @@ export async function gatherResponse(response) {
    }
 }
 export async function onRequest(context) {
-   // const baseHost = 'https://iritlink.hack.id/wp-json/wp/v2'
+   const baseHost = 'https://iritlink.hack.id/wp-json/wp/v2'
    // // Contents of context object
-   // const { params } = context;
-   // const slug = params.detail
-   // const init = {
-   //    headers: {
-   //       'content-type': 'text/html;charset=UTF-8',
-   //    },
-   // };
-   // const racunFetch = await fetch(`${baseHost}/posts/?slug=${slug}`, init)
-   // let racun = await gatherResponse(racunFetch, init)
+   const { params } = context;
+   const slug = params.detail
+   const init = {
+      headers: {
+         'content-type': 'text/html;charset=UTF-8',
+      },
+   };
+   let racunFetch = []
+   try {
+      racunFetch = await fetch(`${baseHost}/posts/${slug}`, init)
+      let racun = await gatherResponse(racunFetch, init)
+      let merchants = []
 
-   return new Response( 'Halo..', { headers: {'content-type': 'text/html;charset=UTF-8'}})
+      for (const tag of racun.tags) {
+         const merchant = await fetch(`${baseHost}/tags/${tag}?_fields=name`, init)
+         const mc = await gatherResponse(merchant, init)
+         merchants.push(mc.name)
+      }
+
+      racun.tags = merchants
+
+      return new Response(template(racun), { headers: { 'content-type': 'text/html;charset=UTF-8' } })
+   } catch (error) {
+      return new Response('Terjadi kesalahan', { headers: { 'content-type': 'text/html;charset=UTF-8' } })
+   }
+
 }
 
 
@@ -213,7 +228,7 @@ export const template = (racun) => {
    })
    function sharePopup(network) {
       var url = 'https://racun.irit.link/p/${racun.slug}/'
-      var mc = ''
+      var mc = '${racun.tags.join(', ')}'
       var title = '${racun.title.rendered}'
       var excerpt = '${encodeURIComponent(racun.excerpt.rendered.replace(/(<([^>]+)>)/ig, ''))}'
       var msg = encodeURIComponent('Aku nemuin promo ') + mc + ' - ' + title + excerpt

@@ -51,12 +51,12 @@
 import { mapMutations } from "vuex";
 
 export default {
-  async asyncData({ $http, store, params,$img }) {
+  async asyncData({ $http, store, params }) {
     const racun = await $http.$get(
-      `/posts/?slug=${params.detail}`
+      `/posts/${params.detail}`
     );
     let merchants = []
-    for (const tag of racun[0].tags) {
+    for (const tag of racun.tags) {
       const merchant = await $http.$get(`/tags/${tag}`)
       merchants.push( merchant.name)
     }
@@ -64,7 +64,7 @@ export default {
     // set view as singular
     store.commit("view/isSingular", true);
     return {
-      racun: racun[0],
+      racun: racun,
       merchants: merchants.join(',')
     };
   },
