@@ -1,31 +1,28 @@
-export async function onRequest(context) {
+export async function gatherResponse(response) {
+   const { headers } = response;
+   const contentType = headers.get('content-type') || '';
+   if (contentType.includes('application/json')) {
+     return JSON.stringify(await response.json());
+   } else if (contentType.includes('application/text')) {
+     return response.text();
+   } else if (contentType.includes('text/html')) {
+     return response.text();
+   } else {
+     return response.text();
+   }
+ }
+
+ async function handleRequest({contex}) {
    const baseHost = 'https://iritlink.hack.id/wp-json/wp/v2'
-   // const baseHost = 'https://public-api.wordpress.com/rest/v1.1/sites/racunproduk.wordpress.com'
-   // Contents of context object
-   const { params } = context;
-   const slug = params.detail
    const init = {
-      headers:{
-         'Content-Type': 'application/json;charset=UTF-8'
-      },
-   }
- 
-   try {
-
-      const response = await fetch(`${baseHost}/posts/?slug=${slug}`, init )
-      const {headers, status, ok, body} = response;
-      const contentType = headers.get('x-wp-total') || 'kosong'
-
-      //template(racun[0]).replace(/[^\S\r\n]+/g,' ')
-      
-
-      return new Response(  `${contentType} ${status} ${ok} ` , init );
-
-   } catch (error) {
-      return new Response('Terjadi kesalahan: '+error.toString())
-   }
-   
-}
+     headers: {
+       'content-type': 'application/json;charset=UTF-8',
+     },
+   };
+   const response = await fetch(`${baseHost}/posts/?slug=${slug}`, init);
+   const results = await gatherResponse(response);
+   return new Response(results, init);
+ }
 
 
 export const template = (racun) => {
