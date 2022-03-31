@@ -38,7 +38,7 @@ export async function onRequest(context) {
 
       return new Response(template(racun), { headers: { 'content-type': 'text/html;charset=UTF-8' } })
    } catch (error) {
-      return new Response('Terjadi kesalahan '+error.toString() , { headers: { 'content-type': 'text/html;charset=UTF-8' } })
+      return new Response('Terjadi kesalahan '+ JSON.stringify(error) , { headers: { 'content-type': 'text/plain;charset=UTF-8' } })
    }
 
 }
