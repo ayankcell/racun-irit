@@ -2,8 +2,8 @@
   <div>
     <div class="w-full ft_img_wrap">
       <nuxt-picture
-        :src="`${racun.featured_image}?resize=500%2C500`"
-        :alt="racun.title"
+        :src="`${racun.jetpack_featured_media_url}&lb=500,500`"
+        :alt="racun.title.rendered"
         height="488"
         width="488"
         fit="cover"
@@ -14,7 +14,7 @@
     <div id="content" class="block items-center">
       <div class="flex justify-between itemx-center px-2 py-3">
         <h1
-          v-html="racun.title"
+          v-html="racun.title.rendered"
           class="text-xl font-semibold text-gray-700 flex flex-grow items-center leading-relaxed"
         ></h1>
         <button
@@ -36,50 +36,42 @@
       <hr />
       <div
         class="racun-content text-lg leading-normal w-full py-2 px-4"
-        v-html="racunContent"
+        v-html="racun.content.rendered"
       ></div>
     </div>
     <SocialShare
-      :title="racun.title"
+      :title="racun.title.rendered"
       :merchant="merchants"
-      :description="racun.excerpt.replace(/<[^>]*>/g, '') || racun.title"
-      :url="`https://racun.irit.link/${racun.slug}`"
+      :description="racun.excerpt.rendered.replace(/<[^>]*>/g, '') || racun.title.rendered"
+      :url="`https://racun.irit.link/p/${racun.slug}/`"
     />
   </div>
 </template>
 <script>
 import { mapMutations } from "vuex";
-import * as cheerio from "cheerio";
 
 export default {
   async asyncData({ $http, store, params,$img }) {
     const racun = await $http.$get(
-      `${store.state.baseHost}/posts/slug:${params.detail}`
+      `/posts/?slug=${params.detail}`
     );
+    let merchants = ''
+    for (const tag of racun[0].tags) {
+      const merchant = await $http.$get(`/tags/${tag}`)
+      merchants += merchant.name +' '
+    }
 
     // set view as singular
     store.commit("view/isSingular", true);
-    //
-    const $ = cheerio.load(racun.content,null, false) // pastikan paramerter null, false supaya tidak otomatis menambahkan tag html dan body pada DOM
-    $('.wp-block-image').each((i,elem)=>{
-      const img = $(elem).find('img')
-      const imgSrc = $(img).attr('src')
-      const imgAlt = $(img).attr('alt')
-      
-      const imgNuxt = $img(imgSrc, {format:'webp',quality:'80',})
-      $(elem).replaceWith(`<img src="${imgNuxt}" alt="${imgAlt}" width="250" height="450" loading="lazy"/>`)
-
-    })
-    const racunContent = $.html()
     return {
-      racun,
-      racunContent
+      racun: racun[0],
+      merchants
     };
   },
   head() {
-    const title = `${this.racun.title} | Irit.Link by Sadiskon`;
-    const description = this.racun.excerpt || this.racun.title;
-    const image = this.racun.featured_image;
+    const title = `${this.racun.title.rendered} | Irit.Link by Sadiskon`;
+    const description = this.racun.excerpt.rendered.replace( /(<([^>]+)>)/ig, '') || this.racun.title.rendered;
+    const image = this.racun.jetpack_featured_media_url;
     return {
       title: title,
       meta: [
@@ -102,16 +94,6 @@ export default {
     ...mapMutations({
       socialShare: "socialshare/open",
     }),
-  },
-  computed: {
-    merchants() {
-      const merchants = this.racun.tags;
-      let mc = [];
-      for (const merchant in merchants) {
-        mc.push(merchant);
-      }
-      return mc.join(", ");
-    },
   },
   watch: {
     "$store.state.socialshare.modalOpened": function (data) {

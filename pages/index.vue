@@ -8,31 +8,41 @@
           class="block rounded-xl overflow-hidden shadow racun-item_link"
         >
           <div class="ft_img_wrap w-full relative">
-            <!-- merchant tag  -->
-            <div
-              class="absolute z-2 w-full bottom-0 left-0 flex gap-1"
-              v-html="merchantTag(item.tags)"
-            ></div>
-            <!-- watermark overflow  -->
+            <div class="absolute z-2 w-full bottom-0 left-0 flex gap-1">
+              <span
+                v-for="merchant of item.tags"
+                :key="merchant"
+                class="text-xs p-1 text-white"
+                :style="`background-color:${
+                  merchantColor[merchant] || merchantColor['default']
+                }`"
+              >
+                {{ merchant }}
+              </span>
+            </div>
+
             <div
               class="absolute z-1 top-0 left-0 w-full h-full bg-black bg-opacity-0 transition-opacity duration-300 hover:bg-opacity-30"
             ></div>
             <nuxt-picture
-              :src="`${item.featured_image}?resize=190%2C190`"
+              :src="`${item.jetpack_featured_media_url}&lb=500,500`"
               sizes="sm:140px md:190px"
               height="180"
               width="180"
               format="webp"
               quality="80"
               fit="cover"
-              :alt="item.title"
-              :imgAttrs="{class:'z-0 w-full object-cover', loading: 'lazy'}"
+              :alt="item.title.rendered"
+              :imgAttrs="{ class: 'z-0 w-full object-cover', loading: 'lazy' }"
             />
           </div>
-          <h2 v-html="item.title" class="p-2 truncate text-gray-800"></h2>
+          <h2
+            v-html="item.title.rendered"
+            class="p-2 truncate text-gray-800"
+          ></h2>
         </NuxtLink>
       </div>
-      <!-- appended items  -->
+
       <div
         class="p-1 w-1/2 md:w-1/3"
         v-for="item of racunPaginate"
@@ -43,31 +53,41 @@
           class="block rounded-xl overflow-hidden shadow racun-item_link"
         >
           <div class="ft_img_wrap w-full relative">
-            <!-- merchant tag  -->
-            <div
-              class="absolute z-2 w-full bottom-0 left-0 flex gap-1"
-              v-html="merchantTag(item.tags)"
-            ></div>
-            <!-- watermark overflow  -->
+            <div class="absolute z-2 w-full bottom-0 left-0 flex gap-1">
+              <span
+                v-for="merchant of item.tags"
+                :key="merchant"
+                class="text-xs p-1 text-white"
+                :style="`background-color:${
+                  merchantColor[merchant] || merchantColor['default']
+                }`"
+              >
+                {{ merchant }}
+              </span>
+            </div>
+
             <div
               class="absolute z-1 top-0 left-0 w-full h-full bg-black bg-opacity-0 transition-opacity duration-300 hover:bg-opacity-30"
             ></div>
             <nuxt-picture
-              :src="`${item.featured_image}?resize=190%2C190`"
+              :src="`${item.jetpack_featured_media_url}&lb=500,500`"
               sizes="sm:140px md:190px"
               height="180"
               width="180"
               format="webp"
               quality="80"
               fit="cover"
-              :alt="item.title"
-              :imgAttrs="{class:'z-0 w-full object-cover', loading: 'lazy'}"
+              :alt="item.title.rendered"
+              :imgAttrs="{ class: 'z-0 w-full object-cover', loading: 'lazy' }"
             />
           </div>
-          <h2 v-html="item.title" class="p-2 truncate text-gray-800"></h2>
+          <h2
+            v-html="item.title.rendered"
+            class="p-2 truncate text-gray-800"
+          ></h2>
         </NuxtLink>
       </div>
-      <!-- skeleton loading  -->
+
       <SkeletonGrid v-if="isLoading" />
       <SkeletonGrid v-if="isLoading" />
       <SkeletonGrid v-if="isLoading" />
@@ -92,7 +112,10 @@
         />
       </svg>
     </button>
-    <div v-else class="block mx-auto text-center p-2 my-5 text-sm text-gray-400 border-1 rounded-lg">
+    <div
+      v-else
+      class="block mx-auto text-center p-2 my-5 text-sm text-gray-400 border-1 rounded-lg"
+    >
       Semua rekomendasi sudah ditampilkan
     </div>
   </div>
@@ -102,11 +125,22 @@ export default {
   async asyncData({ $http, store }) {
     const perPage = store.state.perPage;
 
-    const racunData = await $http.$get(
-      `${store.state.baseHost}/posts/?number=${perPage}&fields=ID,title,featured_image,slug,tags`
+    const racunData = await $http.get(
+      `/posts/?per_page=${perPage}&_fields[]=ID&_fields[]=title&_fields[]=jetpack_featured_media_url&_fields[]=slug&_fields[]=tags`
     );
+    let racun = await racunData.json();
+    //loop masing-masing postingan
+    // untuk menampilkan data tags
+    for (const i in racun) {
+      let mcHTML = [];
+      for (const tag of racun[i].tags) {
+        const mc = await $http.$get(`/tags/${tag}?_fields[]=name`);
+        mcHTML.push(mc.name);
+      }
+      racun[i].tags = mcHTML;
+    }
     //pagination helper
-    const totalPage = Math.ceil(racunData.found / perPage);
+    const totalPage = racunData.headers.get("X-WP-TotalPages");
     // kalau jumlah halaman lebih dari 1 berarti next page = 2
     const nextPage = totalPage > 1 ? store.state.pagination.nextPage : false;
     // unset view as singular
@@ -116,7 +150,7 @@ export default {
       perPage,
       totalPage,
       nextPage,
-      racun: racunData.posts,
+      racun,
       isLoading: false,
     };
   },
@@ -130,69 +164,44 @@ export default {
     this.nextPage =
       this.totalPage > 1 ? this.$store.state.pagination.nextPage : false;
   },
+  computed: {
+    merchantColor() {
+      return {
+        Lazada: "#100e6f",
+        Shopee: "#ef472e",
+        Tokopedia: "#3fab37",
+        "JD.ID": "#e71910",
+        default: "#000",
+      };
+    },
+  },
   methods: {
     async loadNext() {
       this.isLoading = true;
-      const loadNext = await this.$http.$get(
-        `${this.$store.state.baseHost}/posts/?number=${this.perPage}&page=${this.nextPage}&fields=ID,title,featured_image,slug,tags`
+      const loadNext = await this.$http.get(
+        `/posts/?per_page=${this.perPage}&page=${this.nextPage}&_fields[]=ID&_fields[]=title&_fields[]=jetpack_featured_media_url&_fields[]=slug&_fields[]=tags`
       );
+      let nextPageData = await loadNext.json();
+      // untuk menampilkan data tags
+      for (const i in nextPageData) {
+        let mcHTML = [];
+        for (const tag of nextPageData[i].tags) {
+          const mc = await this.$http.$get(`/tags/${tag}`);
+          mcHTML.push(mc.name);
+        }
+        nextPageData[i].tags = mcHTML;
+      }
+
       // atur next page
       const nextPage =
         this.totalPage > this.nextPage ? this.nextPage + 1 : false;
       this.$store.commit("pagination/setNext", nextPage);
       // push item ke existing data
-      loadNext.posts.forEach((item) => {
+      nextPageData.forEach((item) => {
         this.$store.commit("pagination/pushPageData", item);
       });
       // sembunyikan loading
       this.isLoading = false;
-    },
-    merchantColor(merchant) {
-      let bgCol = "#333";
-      switch (merchant) {
-        case "Lazada":
-          bgCol = "#100e6f";
-          break;
-        case "Shopee":
-          bgCol = "#ef472e";
-          break;
-        case "Tokopedia":
-          bgCol = "#3fab37";
-          break;
-        case "JD.ID":
-          bgCol = "#e71910";
-          break;
-        default:
-          bgCol = "#000";
-          break;
-      }
-      return bgCol;
-    },
-    merchantTag(merchants) {
-      let htmlTags = "";
-      const merchantArr = Object.entries(merchants);
-      merchantArr.map((tag, index) => {
-        if (index < 3) {
-          htmlTags += `<span
-                v-for="tag of item.tags"
-                :key="tag.ID"
-                class="text-xs p-1 text-white"
-                style="background-color:${this.merchantColor(tag[1].name)}"
-              >${tag[1].name}
-              </span>`;
-        }
-        if (index === 3) {
-          htmlTags += `<span
-                v-for="tag of item.tags"
-                :key="tag.ID"
-                class="text-xs p-1 text-white"
-                style="background-color:red"
-              > ${merchantArr.length - 3}+ 
-              </span>`;
-        }
-      });
-
-      return htmlTags;
     },
   },
 
