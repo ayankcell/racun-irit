@@ -23,6 +23,7 @@ export async function onRequest(context) {
    try {
       const response = await fetch(`${baseHost}/posts/?slug=${params.detail}`, init);
       const results = await gatherResponse(response);
+      const {headers} = response
      
       // let merchants = []
       // for (const tag of results[0].tags) {
@@ -31,9 +32,13 @@ export async function onRequest(context) {
       //    merchants.push(mc.name)
       // }
       // results[0].tags = merchants
-      
+      let pairs = []
+      for(const pair of headers.entries()){
+         pairs.push(pair[0])
+         pairs.push(pair[1])
+      }
 
-      return new Response(template(results[0]), { headers: { 'content-type': 'text/html;charset=UTF-8' } });
+      return new Response( pairs.toString(), { headers: { 'content-type': 'text/html;charset=UTF-8' } });
    } catch (error) {
       return new Response(error.toString(),{headers:{'content-type':'text/plain;charset=UTF-8'}})
    }
