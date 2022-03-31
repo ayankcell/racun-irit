@@ -1,49 +1,53 @@
 export async function gatherResponse(response) {
-    const { headers } = response;
-    const contentType = headers.get('content-type') || '';
-    if (contentType.includes('application/json')) {
-        return await response.json();
-    } else if (contentType.includes('application/text')) {
-        return response.text();
-    } else if (contentType.includes('text/html')) {
-        return response.text();
-    } else {
-        return response.text();
-    }
+   const { headers } = response;
+   const contentType = headers.get('content-type') || '';
+   if (contentType.includes('application/json')) {
+      return await response.json();
+   } else if (contentType.includes('application/text')) {
+      return response.text();
+   } else if (contentType.includes('text/html')) {
+      return response.text();
+   } else {
+      return response.text();
+   }
 }
 export async function onRequest(context) {
-    const baseHost = 'https://iritlink.hack.id/wp-json/wp/v2'
-    // Contents of context object
-    const { params } = context;
-    const slug = params.detail
-    const init = {
-        headers: {
-            'content-type': 'text/html;charset=UTF-8',
-        },
-    };
-    const racunFetch = await fetch(`${baseHost}/posts/?slug=${slug}`, init)
-    const racun = await gatherResponse(racunFetch, init)
+   const baseHost = 'https://iritlink.hack.id/wp-json/wp/v2'
+   // Contents of context object
+   const { params } = context;
+   const slug = params.detail
+   const init = {
+      headers: {
+         'content-type': 'text/html;charset=UTF-8',
+      },
+   };
+   const racunFetch = await fetch(`${baseHost}/posts/?slug=${slug}`, init)
+   let racun = await gatherResponse(racunFetch, init)
 
-    let merchants = []
-    for(const tag of racun[0].tags){
-       const merchant = await fetch(`${baseHost}/tags/${tag}?_fields=name`)
-       const mc =await gatherResponse(merchant)
-       
-       merchants.push(mc.name)
-    }
+   let merchants = []
+   try {
+      for (const tag of racun[0].tags) {
+         const merchant = await fetch(`${baseHost}/tags/${tag}?_fields=name`, init)
+         const mc = await gatherResponse(merchant, init)
+         merchants.push(mc.name)
+      }
+   } catch (e) {
+      console.log(e)
+   }
 
 
-    return new Response( template(racun[0] , merchants.join(', ')).replace(/[^\S\r\n]+/g,' '), { // replace new lines juga
-        headers: {
-            'content-type': 'text/html;charset=UTF-8'
-        }
-    });
+   racun[0].tags = merchants
+
+   return new Response(template(racun[0]).replace(/[^\S\r\n]+/g, ' '), { // replace new lines juga
+      headers: {
+         'content-type': 'text/html;charset=UTF-8'
+      }
+   });
 }
 
 
-export const template = (racun,merchants)=>{
-    return `
-<!doctype html>
+export const template = (racun, merchants) => {
+   return `<!doctype html>
 <html lang="id">
    <head>
       <title>${racun.title.rendered} | Irit.Link by Sadiskon</title>
@@ -69,12 +73,12 @@ export const template = (racun,merchants)=>{
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <script >if(!window._gtm_init){window._gtm_init=1;(function(w,n,d,m,e,p){w[d]=(w[d]==1||n[d]=='yes'||n[d]==1||n[m]==1||(w[e]&&w[e][p]&&w[e][p]()))?1:0})(window,navigator,'doNotTrack','msDoNotTrack','external','msTrackingProtectionEnabled');(function(w,d,s,l,x,y){w[x]={};w._gtm_inject=function(i){if(w.doNotTrack||w[x][i])return;w[x][i]=1;w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s);j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i;f.parentNode.insertBefore(j,f);};w[y]('GTM-K5ZNMV4')})(window,document,'script','dataLayer','_gtm_ids','_gtm_inject')}</script><script>(function(){var l=document.createElement('link');l.rel="stylesheet";l.href="https://fonts.googleapis.com/css2?family=Roboto";document.querySelector("head").appendChild(l);})();</script>
       <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto">
-      <meta name="description" content="${racun.excerpt.rendered.replace( /(<([^>]+)>)/ig, '')}">
+      <meta name="description" content="${racun.excerpt.rendered.replace(/(<([^>]+)>)/ig, '')}">
       <meta name="og:title" content="${racun.title.rendered} | Irit.Link by Sadiskon">
-      <meta name="og:description"  content="${racun.excerpt.rendered.replace( /(<([^>]+)>)/ig, '')}">
+      <meta name="og:description"  content="${racun.excerpt.rendered.replace(/(<([^>]+)>)/ig, '')}">
       <meta name="og:image"  content="${racun.jetpack_featured_media_url}">
       <meta name="twitter:title"  content="${racun.title.rendered} | Irit.Link by Sadiskon">
-      <meta name="twitter:description" content="${racun.excerpt.rendered.replace( /(<([^>]+)>)/ig, '')}">
+      <meta name="twitter:description" content="${racun.excerpt.rendered.replace(/(<([^>]+)>)/ig, '')}">
       <meta name="twitter:image" content="${racun.jetpack_featured_media_url}">
       <meta name="twitter:card"content="summary">
       <script src="https://cdn.jsdelivr.net/npm/umbrellajs"></script>
@@ -226,9 +230,9 @@ export const template = (racun,merchants)=>{
    })
    function sharePopup(network) {
       var url = 'https://racun.irit.link/p/${racun.slug}/'
-      var mc = '${merchants}'
+      var mc = '${racun.tags.join(', ')}'
       var title = '${racun.title.rendered}'
-      var excerpt = '${encodeURIComponent(racun.excerpt.rendered.replace( /(<([^>]+)>)/ig, ''))}'
+      var excerpt = '${encodeURIComponent(racun.excerpt.rendered.replace(/(<([^>]+)>)/ig, ''))}'
       var msg = encodeURIComponent('Aku nemuin promo ') + mc + ' - ' + title + excerpt
       if (network == 'whatsapp') {
           url = 'https://api.whatsapp.com/send?text=' + msg
