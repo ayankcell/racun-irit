@@ -24,13 +24,13 @@ export async function onRequest(context) {
       const response = await fetch(`${baseHost}/posts/?slug=${params.detail}`, init);
       const results = await gatherResponse(response);
      
-      let merchants = []
-      for (const tag of results[0].tags) {
-         const merchant = await fetch(`${baseHost}/tags/${tag}?_fields=name`, init)
-         const mc = await gatherResponse(merchant, init)
-         merchants.push(mc.name)
-      }
-      results[0].tags = merchants
+      // let merchants = []
+      // for (const tag of results[0].tags) {
+      //    const merchant = await fetch(`${baseHost}/tags/${tag}?_fields=name`, init)
+      //    const mc = await gatherResponse(merchant, init)
+      //    merchants.push(mc.name)
+      // }
+      // results[0].tags = merchants
       
 
       return new Response(template(results[0]), { headers: { 'content-type': 'text/html;charset=UTF-8' } });
