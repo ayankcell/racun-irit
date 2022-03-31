@@ -13,13 +13,13 @@ export async function onRequest(context) {
             'Content-Type': 'application/json'
          },
       })
-      // const racun = await response.status
-      // const racun = await racunFetch.json()
+      const {headers} = response;
+      const contentType = headers.get('content-type') || ''
 
       //template(racun[0]).replace(/[^\S\r\n]+/g,' ')
       
 
-      return new Response( response.statusText + ' '+response.url , { // replace new lines juga
+      return new Response(  contentType , { // replace new lines juga
          headers: {
             'content-type': 'text/plain;charset=UTF-8'
          }
