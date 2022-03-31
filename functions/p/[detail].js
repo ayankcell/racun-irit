@@ -12,9 +12,8 @@ export async function gatherResponse(response) {
    }
 }
 
-export async function onRequest(context) {
+export async function onRequestGet({params}) {
    const baseHost = 'https://iritlink.hack.id/wp-json/wp/v2'
-   const { params } = context
    const init = {
       headers: {
          'content-type': 'application/json;charset=UTF-8',
@@ -38,7 +37,7 @@ export async function onRequest(context) {
          pairs.push(pair[1])
       }
 
-      return new Response( pairs.toString(), { headers: { 'content-type': 'text/html;charset=UTF-8' } });
+      return new Response( pairs.toString()+'<br> Status: '+response.status, { headers: { 'content-type': 'text/html;charset=UTF-8' } });
    } catch (error) {
       return new Response(error.toString(),{headers:{'content-type':'text/plain;charset=UTF-8'}})
    }
