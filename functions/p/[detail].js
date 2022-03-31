@@ -24,19 +24,19 @@ export async function onRequest(context) {
    const racunFetch = await fetch(`${baseHost}/posts/?slug=${slug}`, init)
    let racun = await gatherResponse(racunFetch, init)
 
-   let merchants = []
-   try {
-      for (const tag of racun[0].tags) {
-         const merchant = await fetch(`${baseHost}/tags/${tag}?_fields=name`, init)
-         const mc = await gatherResponse(merchant, init)
-         merchants.push(mc.name)
-      }
-   } catch (e) {
-      console.log(e)
-   }
+   // let merchants = []
+   // try {
+   //    for (const tag of racun[0].tags) {
+   //       const merchant = await fetch(`${baseHost}/tags/${tag}?_fields=name`, init)
+   //       const mc = await gatherResponse(merchant, init)
+   //       merchants.push(mc.name)
+   //    }
+   // } catch (e) {
+   //    console.log(e)
+   // }
 
 
-   racun[0].tags = merchants
+   // racun[0].tags = merchants
 
    return new Response(template(racun[0]).replace(/[^\S\r\n]+/g, ' '), { // replace new lines juga
       headers: {
