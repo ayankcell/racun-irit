@@ -4,26 +4,22 @@ export async function onRequest(context) {
    // Contents of context object
    const { params } = context;
    const slug = params.detail
+   const init = {
+      headers:{
+         'Content-Type': 'application/json;charset=UTF-8'
+      },
+   }
  
    try {
 
-      const response = await fetch(`${baseHost}/posts/?slug=${slug}`,{
-         method: 'GET',
-         headers:{
-            'Content-Type': 'application/json'
-         },
-      })
+      const response = await fetch(`${baseHost}/posts/?slug=${slug}`, init )
       const {headers} = response;
-      const contentType = headers.get('content-type') || 'kosong'
+      const contentType = headers.get('x-wp-total') || 'kosong'
 
       //template(racun[0]).replace(/[^\S\r\n]+/g,' ')
       
 
-      return new Response(  contentType , { // replace new lines juga
-         headers: {
-            'content-type': 'text/plain;charset=UTF-8'
-         }
-      });
+      return new Response(  contentType , init );
 
    } catch (error) {
       return new Response('Terjadi kesalahan: '+error.toString())
