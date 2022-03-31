@@ -3,17 +3,25 @@ export async function onRequest(context) {
    // const baseHost = 'https://public-api.wordpress.com/rest/v1.1/sites/racunproduk.wordpress.com'
    // Contents of context object
    const { params } = context;
-   // const slug = params.detail
+   const slug = params.detail
  
    try {
 
-      // const racunFetch = await fetch(`${baseHost}/posts?slug=${slug}`)
+      const response = await fetch(`${baseHost}/posts?slug=${slug}`,{
+         method: 'GET',
+         mode: 'cors',
+         headers:{
+            'Content-Type': 'application/json'
+         },
+      })
+      const headers = response.headers.get('Content-Type')
       // const racun = await racunFetch.json()
+      console.log(headers)
 
       //template(racun[0]).replace(/[^\S\r\n]+/g,' ')
-      const slug = params.detail
+      
 
-      return new Response( slug , { // replace new lines juga
+      return new Response( headers , { // replace new lines juga
          headers: {
             'content-type': 'text/html;charset=UTF-8'
          }
