@@ -1,13 +1,13 @@
 export async function onRequest(context) {
-   // const baseHost = 'https://iritlink.hack.id/wp-json/wp/v2'
-   const baseHost = 'https://public-api.wordpress.com/rest/v1.1/sites/racunproduk.wordpress.com'
+   const baseHost = 'https://iritlink.hack.id/wp-json/wp/v2'
+   // const baseHost = 'https://public-api.wordpress.com/rest/v1.1/sites/racunproduk.wordpress.com'
    // Contents of context object
    const { params } = context;
    const slug = params.detail
  
    try {
 
-      const response = await fetch(`${baseHost}/posts`,{
+      const response = await fetch(`${baseHost}/posts/?slug=${slug}`,{
          method: 'GET',
          headers:{
             'Content-Type': 'application/json'
