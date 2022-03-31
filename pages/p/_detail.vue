@@ -55,17 +55,17 @@ export default {
     const racun = await $http.$get(
       `/posts/?slug=${params.detail}`
     );
-    let merchants = ''
+    let merchants = []
     for (const tag of racun[0].tags) {
       const merchant = await $http.$get(`/tags/${tag}`)
-      merchants += merchant.name +' '
+      merchants.push( merchant.name)
     }
 
     // set view as singular
     store.commit("view/isSingular", true);
     return {
       racun: racun[0],
-      merchants
+      merchants: merchants.join(',')
     };
   },
   head() {

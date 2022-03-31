@@ -33,7 +33,7 @@
               quality="80"
               fit="cover"
               :alt="item.title.rendered"
-              :imgAttrs="{ class: 'z-0 w-full object-cover', loading: 'lazy' }"
+              :imgAttrs="{ class: 'z-0 w-full object-cover' }"
             />
           </div>
           <h2
@@ -126,7 +126,7 @@ export default {
     const perPage = store.state.perPage;
 
     const racunData = await $http.get(
-      `/posts/?per_page=${perPage}&_fields[]=ID&_fields[]=title&_fields[]=jetpack_featured_media_url&_fields[]=slug&_fields[]=tags`
+      `/posts/?per_page=${perPage}&_fields=ID,title,jetpack_featured_media_url,slug,tags`
     );
     let racun = await racunData.json();
     //loop masing-masing postingan
@@ -179,14 +179,14 @@ export default {
     async loadNext() {
       this.isLoading = true;
       const loadNext = await this.$http.get(
-        `/posts/?per_page=${this.perPage}&page=${this.nextPage}&_fields[]=ID&_fields[]=title&_fields[]=jetpack_featured_media_url&_fields[]=slug&_fields[]=tags`
+        `/posts/?per_page=${this.perPage}&page=${this.nextPage}&_fields=ID,title,jetpack_featured_media_url,slug,tags`
       );
       let nextPageData = await loadNext.json();
       // untuk menampilkan data tags
       for (const i in nextPageData) {
         let mcHTML = [];
         for (const tag of nextPageData[i].tags) {
-          const mc = await this.$http.$get(`/tags/${tag}`);
+          const mc = await this.$http.$get(`/tags/${tag}?_fields=name`);
           mcHTML.push(mc.name);
         }
         nextPageData[i].tags = mcHTML;
