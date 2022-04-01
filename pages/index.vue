@@ -2,9 +2,9 @@
   <div>
     <Header />
     <div id="content" class="flex flex-wrap items-center px-3">
-      <div class="p-1 w-1/2 md:w-1/3" v-for="item of racun" :key="item.id">
+      <div class="p-1 w-1/2 md:w-1/3" v-for="item of racun" :key="item.ID">
         <NuxtLink
-          :to="`/p/${item.id}/`"
+          :to="`/p/${item.slug}/`"
           class="block rounded-xl overflow-hidden shadow racun-item_link"
         >
           <div class="ft_img_wrap w-full relative">
@@ -46,23 +46,23 @@
       <div
         class="p-1 w-1/2 md:w-1/3"
         v-for="item of racunPaginate"
-        :key="item.id"
+        :key="item.ID"
       >
         <NuxtLink
-          :to="`/p/${item.id}/`"
+          :to="`/p/${item.slug}/`"
           class="block rounded-xl overflow-hidden shadow racun-item_link"
         >
           <div class="ft_img_wrap w-full relative">
             <div class="absolute z-2 w-full bottom-0 left-0 flex gap-1">
               <span
                 v-for="merchant of item.tags"
-                :key="merchant"
+                :key="merchant.ID"
                 class="text-xs p-1 text-white"
                 :style="`background-color:${
-                  merchantColor[merchant] || merchantColor['default']
+                  merchantColor[merchant.name] || merchantColor['default']
                 }`"
               >
-                {{ merchant }}
+                {{ merchant.name }}
               </span>
             </div>
 
@@ -125,14 +125,12 @@ export default {
   async asyncData({ $http, store }) {
     const perPage = store.state.perPage;
 
-    const racunData = await $http.get(
-      `/posts/?per_page=${perPage}&fields=id,title,featured_image,slug,tags`
+    const racun = await $http.$get(
+      `/posts/?number=${perPage}&fields=ID,title,featured_image,slug,tags`
     );
-    let racun = await racunData.json();
-    //loop masing-masing postingan
     
     //pagination helper
-    const totalPage = racunData.headers.get("X-WP-TotalPages");
+    const totalPage = Math.ceil(racun.found / perPage )
     // kalau jumlah halaman lebih dari 1 berarti next page = 2
     const nextPage = totalPage > 1 ? store.state.pagination.nextPage : false;
     // unset view as singular
@@ -170,26 +168,16 @@ export default {
   methods: {
     async loadNext() {
       this.isLoading = true;
-      const loadNext = await this.$http.get(
-        `/posts/?per_page=${this.perPage}&page=${this.nextPage}&_fields=id,title,featured_image,slug,tags`
+      const loadNext = await this.$http.$get(
+        `/posts/?number=${this.perPage}&page=${this.nextPage}&_fields=ID,title,featured_image,slug,tags`
       );
-      let nextPageData = await loadNext.json();
-      // untuk menampilkan data tags
-      for (const i in nextPageData) {
-        let mcHTML = [];
-        for (const tag of nextPageData[i].tags) {
-          const mc = await this.$http.$get(`/tags/${tag}?_fields=name`);
-          mcHTML.push(mc.name);
-        }
-        nextPageData[i].tags = mcHTML;
-      }
 
       // atur next page
       const nextPage =
         this.totalPage > this.nextPage ? this.nextPage + 1 : false;
       this.$store.commit("pagination/setNext", nextPage);
       // push item ke existing data
-      nextPageData.forEach((item) => {
+      loadNext.posts.forEach((item) => {
         this.$store.commit("pagination/pushPageData", item);
       });
       // sembunyikan loading
