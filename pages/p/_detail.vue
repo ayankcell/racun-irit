@@ -2,8 +2,8 @@
   <div>
     <div class="w-full ft_img_wrap">
       <nuxt-picture
-        :src="`${racun.jetpack_featured_media_url}&lb=500,500`"
-        :alt="racun.title.rendered"
+        :src="`${racun.featured_image}?resize=488%2C488`"
+        :alt="racun.title"
         height="488"
         width="488"
         fit="cover"
@@ -14,7 +14,7 @@
     <div id="content" class="block items-center">
       <div class="flex justify-between itemx-center px-2 py-3">
         <h1
-          v-html="racun.title.rendered"
+          v-html="racun.title"
           class="text-xl font-semibold text-gray-700 flex flex-grow items-center leading-relaxed"
         ></h1>
         <button
@@ -36,13 +36,12 @@
       <hr />
       <div
         class="racun-content text-lg leading-normal w-full py-2 px-4"
-        v-html="racun.content.rendered"
+        v-html="racun.content"
       ></div>
     </div>
     <SocialShare
-      :title="racun.title.rendered"
-      :merchant="merchants"
-      :description="racun.excerpt.rendered.replace(/<[^>]*>/g, '') || racun.title.rendered"
+      :title="racun.title"
+      :description="racun.excerpt.replace(/<[^>]*>/g, '') || racun.title"
       :url="`https://racun.irit.link/p/${racun.slug}/`"
     />
   </div>
@@ -53,25 +52,19 @@ import { mapMutations } from "vuex";
 export default {
   async asyncData({ $http, store, params }) {
     const racun = await $http.$get(
-      `/posts/${params.detail}`
+      `/posts/slug:${params.detail}`
     );
-    let merchants = []
-    for (const tag of racun.tags) {
-      const merchant = await $http.$get(`/tags/${tag}`)
-      merchants.push( merchant.name)
-    }
 
     // set view as singular
     store.commit("view/isSingular", true);
     return {
       racun: racun,
-      merchants: merchants.join(',')
     };
   },
   head() {
-    const title = `${this.racun.title.rendered} | Irit.Link by Sadiskon`;
-    const description = this.racun.excerpt.rendered.replace( /(<([^>]+)>)/ig, '') || this.racun.title.rendered;
-    const image = this.racun.jetpack_featured_media_url;
+    const title = `${this.racun.title} | Irit.Link by Sadiskon`;
+    const description = this.racun.excerpt.replace( /(<([^>]+)>)/ig, '') || this.racun.title;
+    const image = this.racun.featured_image;
     return {
       title: title,
       meta: [

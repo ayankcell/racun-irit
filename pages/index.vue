@@ -11,13 +11,13 @@
             <div class="absolute z-2 w-full bottom-0 left-0 flex gap-1">
               <span
                 v-for="merchant of item.tags"
-                :key="merchant"
+                :key="merchant.ID"
                 class="text-xs p-1 text-white"
                 :style="`background-color:${
-                  merchantColor[merchant] || merchantColor['default']
+                  merchantColor[merchant.name] || merchantColor['default']
                 }`"
               >
-                {{ merchant }}
+                {{ merchant.name }}
               </span>
             </div>
 
@@ -25,19 +25,19 @@
               class="absolute z-1 top-0 left-0 w-full h-full bg-black bg-opacity-0 transition-opacity duration-300 hover:bg-opacity-30"
             ></div>
             <nuxt-picture
-              :src="`${item.jetpack_featured_media_url}&lb=500,500`"
+              :src="`${item.featured_image}?resize=500%2C500`"
               sizes="sm:140px md:190px"
               height="180"
               width="180"
               format="webp"
               quality="80"
               fit="cover"
-              :alt="item.title.rendered"
+              :alt="item.title"
               :imgAttrs="{ class: 'z-0 w-full object-cover' }"
             />
           </div>
           <h2
-            v-html="item.title.rendered"
+            v-html="item.title"
             class="p-2 truncate text-gray-800"
           ></h2>
         </NuxtLink>
@@ -70,19 +70,19 @@
               class="absolute z-1 top-0 left-0 w-full h-full bg-black bg-opacity-0 transition-opacity duration-300 hover:bg-opacity-30"
             ></div>
             <nuxt-picture
-              :src="`${item.jetpack_featured_media_url}&lb=500,500`"
+              :src="`${item.featured_image}?resize=500%2C500`"
               sizes="sm:140px md:190px"
               height="180"
               width="180"
               format="webp"
               quality="80"
               fit="cover"
-              :alt="item.title.rendered"
+              :alt="item.title"
               :imgAttrs="{ class: 'z-0 w-full object-cover', loading: 'lazy' }"
             />
           </div>
           <h2
-            v-html="item.title.rendered"
+            v-html="item.title"
             class="p-2 truncate text-gray-800"
           ></h2>
         </NuxtLink>
@@ -126,19 +126,11 @@ export default {
     const perPage = store.state.perPage;
 
     const racunData = await $http.get(
-      `/posts/?per_page=${perPage}&_fields=id,title,jetpack_featured_media_url,slug,tags`
+      `/posts/?per_page=${perPage}&fields=id,title,featured_image,slug,tags`
     );
     let racun = await racunData.json();
     //loop masing-masing postingan
-    // untuk menampilkan data tags
-    for (const i in racun) {
-      let mcHTML = [];
-      for (const tag of racun[i].tags) {
-        const mc = await $http.$get(`/tags/${tag}?_fields[]=name`);
-        mcHTML.push(mc.name);
-      }
-      racun[i].tags = mcHTML;
-    }
+    
     //pagination helper
     const totalPage = racunData.headers.get("X-WP-TotalPages");
     // kalau jumlah halaman lebih dari 1 berarti next page = 2
@@ -150,7 +142,7 @@ export default {
       perPage,
       totalPage,
       nextPage,
-      racun,
+      racun:racun.posts,
       isLoading: false,
     };
   },
@@ -179,7 +171,7 @@ export default {
     async loadNext() {
       this.isLoading = true;
       const loadNext = await this.$http.get(
-        `/posts/?per_page=${this.perPage}&page=${this.nextPage}&_fields=id,title,jetpack_featured_media_url,slug,tags`
+        `/posts/?per_page=${this.perPage}&page=${this.nextPage}&_fields=id,title,featured_image,slug,tags`
       );
       let nextPageData = await loadNext.json();
       // untuk menampilkan data tags

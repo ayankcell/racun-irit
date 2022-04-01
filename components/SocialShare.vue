@@ -80,14 +80,14 @@
 import { mapMutations } from "vuex";
 
 export default {
-  props: ["url", "title", "description","merchant"],
+  props: ["url", "title", "description"],
   data() {
     return {
       isOpened: this.$store.state.socialshare.modalOpened,
       isCopied: false,
       sharing: {
         url: this.$props.url,
-        title: `Aku nemuin promo ${this.$props.merchant} - ${this.$props.title}`,
+        title: `Aku nemu ini -> ${this.$props.title}`,
         description: `${this.$props.description}`,
         twitterUser: "sadiskon",
       },
