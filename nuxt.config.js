@@ -47,15 +47,15 @@ export default {
   modules: [
     '@nuxt/image',
     '@nuxt/http',
-    // '@nuxtjs/axios',
     'vue-social-sharing/nuxt',
     '@nuxtjs/gtm',
-    ['nuxt-clipboard', { autoSetContainer: true }]
+    ['nuxt-clipboard', { autoSetContainer: true }],
   ],
   // http config
-  http:{
-    baseURL: 'https://iritlink.hack.id/wp-json/wp/v2'
+  http: {
+    baseURL: 'https://public-api.wordpress.com/rest/v1.1/sites/racunproduk.wordpress.com'
   },
+  //firebase Config:
   //Progressive Web App
   pwa: {
     manifest: {

@@ -1,7 +1,7 @@
 <template>
   <nav class="fixed z-5 top-0 left-0 w-full bg-white border-b-1">
     <div class="max-w-screen-md mx-auto relative flex justify-between">
-      <!-- hanya tampilkan di halaman detail ( singular ) -->
+      <!-- tombol back hanya tampilkan di halaman detail ( singular ) -->
       <NuxtLink
         to="/"
         class="flex justify-center items-center h-13 w-13 racun-nav_back"
@@ -33,16 +33,29 @@
         />
       </div>
       <!-- hanya tampilkan di halaman index -->
-      <div
+      <!-- <div
         id="helper"
         class="flex justify-start items-center px-5 font-bold"
         v-if="!isSingular"
       >
         IRIT.LINK
-      </div>
-      <!-- <fieldset class="flex-grow" v-if="!isSingular">
-        <div class="relative">
-          <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+      </div> -->
+      <fieldset class="flex-grow" v-if="!isSingular">
+        <div class="relative h-full">
+          <input
+            type="text"
+            v-model="searchText"
+            id="search-input"
+            :class="`${
+              !showSearchInput ? 'hidden' : 'inline'
+            } w-full h-13 p-3 text-gray-700 bg-white rounded-md focus:bg-gray-100`"
+            placeholder="Cari Produk Racun.."
+          />
+
+          <button
+            class="absolute inset-y-0 right-0 flex items-center justify-center h-13 w-13"
+            @click="toggleSearchInput"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               class="h-5 w-5"
@@ -51,36 +64,38 @@
             >
               <path
                 fill-rule="evenodd"
+                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                clip-rule="evenodd"
+                v-if="showSearchInput"
+              />
+              <path
+                fill-rule="evenodd"
+                v-else
                 d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
                 clip-rule="evenodd"
               />
             </svg>
-          </span>
-
-          <input
-            type="text"
-            v-model="query"
-            class="w-full py-2 pl-10 pr-4 text-gray-700 bg-white rounded-md focus:border-rose-500 focus:outline-none"
-            placeholder="Cari Racun.."
-          />
+          </button>
         </div>
-      </fieldset> -->
+      </fieldset>
       <!-- hasil pencarian  -->
-      <!-- <div
-        class="absolute right-0 z-20 w-full py-2 mt-10 bg-white rounded-md shadow-xl dark:bg-gray-800"
-        v-if="!isSingular && searchRes.lenght > 0"
+      <div
+        class="absolute right-0 left-0 z-20 w-full md:w-[95%] max-h-screen-sm overflow-y-scroll py-2 mt-13 bg-white rounded-md shadow-xl dark:bg-gray-800"
+        v-if="!isSingular && searchRes.length"
       >
-       <NuxtLink
-          to="https://www.sadiskon.com"
-          class="flex px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-200 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
+        <NuxtLink
+          v-for="snippet of searchRes"
+          :key="snippet.ID"
+          :to="`/p/${snippet.slug}/`"
+          class="flex px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-200 transform hover:bg-gray-100"
         >
-        hasil
-       </NuxtLink>
-      </div> -->
+          {{ snippet.title }}
+        </NuxtLink>
+      </div>
 
       <!-- tampilkan di semua halaman  -->
       <button
-        class="flex justify-center items-center h-13 w-13 racun-nav_toggle"
+        class="flex justify-center items-center h-13 w-13 racun-nav_toggle place-self-start"
         @click="toggleMenu"
       >
         <svg
@@ -160,7 +175,8 @@ export default {
     return {
       isSingular,
       menuOpen: false,
-      query: "",
+      showSearchInput: false,
+      searchText: "",
       searchRes: [],
     };
   },
@@ -168,25 +184,35 @@ export default {
     toggleMenu() {
       this.menuOpen = !this.menuOpen;
     },
+    async toggleSearchInput() {
+      this.showSearchInput = !this.showSearchInput;
+      if (!this.showSearchInput) {
+        this.searchRes = [];
+        this.searchText = "";
+      }
+    },
+    async doSearch() {
+      const search = await this.$http.$get(
+        `/posts/?search=${this.searchText}&fields=title,slug,ID`
+      );
+      this.searchRes = search.posts;
+    },
   },
   watch: {
     $route() {
       this.isSingular = this.$store.state.view.isSingular;
       this.menuOpen = false;
+      this.searchRes = [];
+      this.searchText = "";
+      this.showSearchInput = false;
     },
-    // async query(query) {
-    //   if (!query) {
-    //     this.searchRes = [];
-    //     return;
-    //   }
-
-    //   const hasil = await this.$http.post(
-    //       `${this.$store.state.baseHost}/search`,
-    //       { query: this.query }
-    //     );
-
-    //   console.log(hasil)
-    // },
+    searchText(query) {
+      if (!!query.length) {
+        this.doSearch();
+      } else {
+        this.searchRes = [];
+      }
+    },
   },
 };
 </script>
