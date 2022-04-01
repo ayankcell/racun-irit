@@ -45,10 +45,9 @@
           <input
             type="text"
             v-model="searchText"
-            id="search-input"
             :class="`${
               !showSearchInput ? 'hidden' : 'inline'
-            } w-full h-13 p-3 text-gray-700 bg-white rounded-md focus:bg-gray-100`"
+            } w-full h-10 p-2 my-1 text-gray-700 bg-white rounded-md focus:bg-gray-100`"
             placeholder="Cari Produk Racun.."
           />
 
