@@ -1,6 +1,6 @@
 <template>
   <nav class="fixed z-5 top-0 left-0 w-full bg-white border-b-1">
-    <div class="max-w-screen-md mx-auto relative flex justify-between">
+    <div class="max-w-screen-sm mx-auto relative flex justify-between">
       <!-- tombol back hanya tampilkan di halaman detail ( singular ) -->
       <NuxtLink
         to="/"
@@ -20,7 +20,7 @@
           />
         </svg>
       </NuxtLink>
-
+      <!-- Back Button -->
       <div class="rounded-full w-13 h-13 p-2" v-if="isSingular">
         <nuxt-img
           src="https://sadiskon.files.wordpress.com/2022/03/favicon.png?resize=32%2C32"
@@ -32,23 +32,17 @@
           class="w-full h-full rounded-full object-cover"
         />
       </div>
-      <!-- hanya tampilkan di halaman index -->
-      <!-- <div
-        id="helper"
-        class="flex justify-start items-center px-5 font-bold"
-        v-if="!isSingular"
-      >
-        IRIT.LINK
-      </div> -->
+     
+     <!-- Search Bar -->
       <fieldset class="flex-grow" v-if="!isSingular">
-        <div class="relative h-full">
+        <div class="relative h-full pl-5">
           <input
             type="text"
             v-model="searchText"
             id="searchInput"
             :class="`${
               !isSearchVisible ? 'hidden' : 'inline'
-            } w-full h-10 p-2 my-1 text-gray-700 bg-white rounded-md focus:bg-gray-100 focus:outline-rose-300`"
+            } w-full h-10 p-2 px-2 my-1 text-gray-700 bg-white rounded-md focus:bg-gray-100 focus:outline-rose-300`"
             placeholder="Cari Produk Rekomendasi kami.."
           />
 
