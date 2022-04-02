@@ -45,10 +45,11 @@
           <input
             type="text"
             v-model="searchText"
+            id="searchInput"
             :class="`${
-              !showSearchInput ? 'hidden' : 'inline'
-            } w-full h-10 p-2 my-1 text-gray-700 bg-white rounded-md focus:bg-gray-100`"
-            placeholder="Cari Produk Racun.."
+              !isSearchVisible ? 'hidden' : 'inline'
+            } w-full h-10 p-2 my-1 text-gray-700 bg-white rounded-md focus:bg-gray-100 focus:outline-rose-300`"
+            placeholder="Cari Produk Rekomendasi kami.."
           />
 
           <button
@@ -65,7 +66,7 @@
                 fill-rule="evenodd"
                 d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
                 clip-rule="evenodd"
-                v-if="showSearchInput"
+                v-if="isSearchVisible"
               />
               <path
                 fill-rule="evenodd"
@@ -91,6 +92,13 @@
           {{ snippet.title }}
         </NuxtLink>
       </div>
+      <!-- no search res -->
+       <div
+        class="absolute right-0 left-0 z-20 w-full md:w-[95%] py-2 mt-13 bg-white rounded-md shadow-xl dark:bg-gray-800"
+        v-if="!searchRes.length && searchText.length"
+      >
+      <span class="block text-gray-300 px-4 py-3">Tidak ada hasil pencarian</span>
+       </div>
 
       <!-- tampilkan di semua halaman  -->
       <button
@@ -174,7 +182,7 @@ export default {
     return {
       isSingular,
       menuOpen: false,
-      showSearchInput: false,
+      isSearchVisible: this.$store.state.isSearchVisible,
       searchText: "",
       searchRes: [],
     };
@@ -184,8 +192,9 @@ export default {
       this.menuOpen = !this.menuOpen;
     },
     async toggleSearchInput() {
-      this.showSearchInput = !this.showSearchInput;
-      if (!this.showSearchInput) {
+      this.isSearchVisible = !this.isSearchVisible;
+      this.$store.commit('toggleSearch', this.isSearchVisible)
+      if (!this.isSearchVisible) {
         this.searchRes = [];
         this.searchText = "";
       }

@@ -192,6 +192,9 @@ export default {
     "$store.state.pagination.pageData": function () {
       this.racunPaginate = this.$store.state.pagination.pageData;
     },
+    "$store.state.isSearchVisible": function(isVisible){
+      if(isVisible) document.getElementById('searchInput').focus()
+    }
   },
   head() {
     const title =
