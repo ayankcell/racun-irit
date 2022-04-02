@@ -11,7 +11,7 @@ export async function onRequestGet({params}) {
        const totalInWP = parseInt(results.found)
 
        //Live Data
-       const liveData = await fetch('http://localhost:3000/legundi/stats')
+       const liveData = await fetch('https://racun.irit.link/legundi/stats')
        const livePageStr = await liveData.text()
        const metaRacun = livePageStr.match(/<meta[^>]+name="sds:totalracun" content="([^")]*)"/g)
        const totalLive = parseInt(metaRacun.toString().match(/\d+/))
