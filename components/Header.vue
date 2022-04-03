@@ -2,7 +2,7 @@
   <div id="bio" class="flex flex-col items-center py-5 px-3 mb-3 border-b-1">
     <div class="relative rounded-full w-18 h-18">
       <nuxt-img
-        src="https://sadiskon.files.wordpress.com/2022/03/favicon.png"
+        src="https://racunproduk.files.wordpress.com/2022/04/favicon.png"
         width="72"
         height="72"
         format="webp"
