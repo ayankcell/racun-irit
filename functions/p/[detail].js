@@ -47,7 +47,8 @@ export const template = (racun) => {
       <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
       <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Roboto">
       <link rel="preload" as="script" href="https://cdn.jsdelivr.net/npm/umbrellajs">
-      <link rel="preload" as="script" href="https://www.googletagmanager.com/gtag/js">
+      <link rel="preload" as="script" href="https://www.googletagmanager.com/gtag/jsid=G-EXD84HQ4LQ">
+      <link rel="dns-prefetch" href="https://www.googletagmanager.com/" >
       <link rel="shortcut icon" href="/_nuxt/icons/icon_64x64.558a40.png">
       <link rel="apple-touch-icon" href="/_nuxt/icons/icon_512x512.558a40.png" sizes="512x512">
       <script type="text/javascript" async="" src="https://www.googletagmanager.com/gtag/js?id=G-EXD84HQ4LQ&amp;l=dataLayer&amp;cx=c"></script><script async="" src="https://www.googletagmanager.com/gtm.js?id=GTM-K5ZNMV4"></script>
