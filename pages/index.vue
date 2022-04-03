@@ -197,17 +197,31 @@ export default {
     }
   },
   head() {
+    const link = 'https://racun.irit.link/'
     const title =
       "Racun Produk Irit Link di Shopee, Lazada & Toko Online | by Sadiskon";
     const description =
       "Rekomendasi Barang Promo di Shopee, Lazada & Toko Online Lain. Racun Produk by Irit Link Sadiskon, Racun Shopee, Racun Lazada, Racun Irit Link.";
     return {
       title: title,
+      link: [
+        {rel:'canonical',href: link}
+      ],
       meta: [
         { name: "description", hid: "description", content: description },
         { name: "og:title", hid: "og:title", content: title },
+        { name: "og:url", hid: "og:url", content: link },
         { name: "og:description", hid: "og:description", content: description },
+        { name: "twitter:title", hid: "twitter:title", content: title },
+        {
+          name: "twitter:description",
+          hid: "twitter:description",
+          content: description,
+        },
+        { name: "twitter:site", hid: "twitter:site", content: '@sadiskon' },
+        { name: "twitter:card", hid: "twitter:card", content: "summary" }
       ],
+      
     };
   },
 };

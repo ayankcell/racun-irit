@@ -43,7 +43,7 @@
             :class="`${
               !isSearchVisible ? 'hidden' : 'inline'
             } w-full h-10 p-2 px-2 my-1 text-gray-700 bg-white rounded-md focus:bg-gray-100 focus:outline-rose-300`"
-            placeholder="Cari Produk Rekomendasi kami.."
+            placeholder="Ketik untuk mencari.."
           />
 
           <button

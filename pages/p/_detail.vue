@@ -63,10 +63,14 @@ export default {
   },
   head() {
     const title = `${this.racun.title} | Irit.Link by Sadiskon`;
+    const link = `https://racun.irit.link/p/${this.racun.slug}/`
     const description = this.racun.excerpt.replace( /(<([^>]+)>)/ig, '') || this.racun.title;
     const image = this.racun.featured_image;
     return {
       title: title,
+      link:[
+        {rel: "canonical", href: link}
+      ],
       meta: [
         { name: "description", hid: "description", content: description },
         { name: "og:title", hid: "og:title", content: title },
@@ -79,6 +83,7 @@ export default {
           content: description,
         },
         { name: "twitter:image", hid: "twitter:image", content: image },
+        { name: "twitter:site", hid: "twitter:site", content: '@sadiskon' },
         { name: "twitter:card", hid: "twitter:card", content: "summary" },
       ],
     };
