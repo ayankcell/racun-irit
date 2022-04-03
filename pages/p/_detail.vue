@@ -119,7 +119,9 @@ export default {
 .wp-block-button {
   display: block;
   text-align: center;
+  margin:1rem auto;
 }
+
 .wp-block-button__link {
   background: #e85668;
   display: block;
@@ -145,6 +147,9 @@ export default {
   width: 1.3rem;
   margin-right: 1rem;
 }
+.wp-block-table{
+  margin:0 auto;
+}
 .racun-content .wp-block-embed {
   margin: 0;
 }
@@ -155,4 +160,7 @@ export default {
 .racun-content iframe {
   max-width: 100%;
 }
+.wp-block-table{margin:0 0 1em;overflow-x:auto}.wp-block-table table{border-collapse:collapse;width:100%}
+.wp-block-table td{padding:.5rem;}
+.wp-block-table.is-style-stripes{background-color:transparent;border-bottom:1px solid #f0f0f0;border-collapse:inherit;border-spacing:0}.wp-block-table.is-style-stripes tbody tr:nth-child(odd){background-color:#f0f0f0}.wp-block-table.is-style-stripes.has-subtle-light-gray-background-color tbody tr:nth-child(odd){background-color:#f3f4f5}.wp-block-table.is-style-stripes.has-subtle-pale-green-background-color tbody tr:nth-child(odd){background-color:#e9fbe5}.wp-block-table.is-style-stripes.has-subtle-pale-blue-background-color tbody tr:nth-child(odd){background-color:#e7f5fe}.wp-block-table.is-style-stripes.has-subtle-pale-pink-background-color tbody tr:nth-child(odd){background-color:#fcf0ef}.wp-block-table.is-style-stripes td,.wp-block-table.is-style-stripes th{border-color:transparent}
 </style>
