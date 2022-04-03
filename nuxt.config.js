@@ -17,6 +17,18 @@ export default {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.png' }
+    ],
+    script:[
+      {
+        src: 'https://sdki.truepush.com/sdk/v2.0.3/app.js',
+        body: true,
+        async: true
+      },
+      {
+        src: '/assets/js/truepush.js',
+        body: true,
+        async: true
+      }
     ]
   },
 
