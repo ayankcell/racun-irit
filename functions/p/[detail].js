@@ -236,6 +236,19 @@ export const template = (racun) => {
       window.open(url, '','popup=yes,width=650,height=400');
   }
     </script>
+
+    <script type="application/javascript" src="https://sdki.truepush.com/sdk/v2.0.3/app.js" async></script>
+    <script>
+    var truepush = window.truepush || [];
+            
+    truepush.push(function(){
+        truepush.Init({
+            id: "62495eee9af543534f1610a0"
+        },function(error){
+          if(error) console.error(error);
+        })
+    })
+    </script>
     </body>
     </html>
     `
