@@ -15,6 +15,6 @@ else {
     else {
         host = "https://sdki.truepush.com/sdk/";
     }
-    swPath = host + version + "/swtruepush.js";
+    swPath = host + version + "/sw.js";
 }
 importScripts(swPath);
