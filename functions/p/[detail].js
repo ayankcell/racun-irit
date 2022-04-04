@@ -47,7 +47,6 @@ export const template = (racun) => {
       <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
       <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Roboto">
       <link rel="preload" as="script" href="https://cdn.jsdelivr.net/npm/umbrellajs">
-      <link rel="preload" as="script" href="https://www.googletagmanager.com">
       <link rel="dns-prefetch" href="https://www.googletagmanager.com/" >
       <link rel="shortcut icon" href="https://racunproduk.files.wordpress.com/2022/04/favicon.png?resize=64%2C64">
       <link rel="apple-touch-icon" href="https://racunproduk.files.wordpress.com/2022/04/favicon.png?resize=512%2C512" sizes="512x512">
