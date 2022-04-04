@@ -75,7 +75,11 @@ export default {
       lang: 'id',
       short_name: 'Racun Diskon',
       useWebmanifestExtension: false
-    }
+    },
+    
+  },
+  workbox:{
+    swURL: '/assets/js/sw-racun.js'
   },
   // Google Tag Manager
   gtm: {
