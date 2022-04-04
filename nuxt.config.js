@@ -79,8 +79,7 @@ export default {
     
   },
   workbox:{
-    // swURL: '/assets/js/sw-racun.js',
-    importScripts: '/assets/js/sw-racun.js'
+    importScripts: 'sw-racun.js'
   },
   // Google Tag Manager
   gtm: {
