@@ -79,7 +79,7 @@ export default {
     
   },
   workbox:{
-    importScripts: 'sw-racun.js'
+    importScripts: ['swtruepush.js']
   },
   // Google Tag Manager
   gtm: {
