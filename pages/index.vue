@@ -219,7 +219,8 @@ export default {
           content: description,
         },
         { name: "twitter:site", hid: "twitter:site", content: '@sadiskon' },
-        { name: "twitter:card", hid: "twitter:card", content: "summary" }
+        { name: "twitter:card", hid: "twitter:card", content: "summary" },
+        {name:'facebook-domain-verification',content:'0l7ou7u0f89oasssyjl0k54qdb3oq0'}
       ],
       
     };

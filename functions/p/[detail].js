@@ -67,6 +67,7 @@ export const template = (racun) => {
       <meta name="twitter:description" content="${racun.excerpt.replace(/(<([^>]+)>)/ig, '')}">
       <meta name="twitter:image" content="${racun.featured_image}">
       <meta name="twitter:card"content="summary">
+      <meta name="facebook-domain-verification" content="0l7ou7u0f89oasssyjl0k54qdb3oq0" />
       <link rel="canonical" href="https://racun.irit.link/p/${racun.slug}/">
       <script src="https://cdn.jsdelivr.net/npm/umbrellajs"></script>
       <script src="/assets/js/clipboard.min.js"></script>
