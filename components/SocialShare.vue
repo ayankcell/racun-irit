@@ -87,7 +87,7 @@ export default {
       isCopied: false,
       sharing: {
         url: this.$props.url,
-        title: `Aku nemu ini -> ${this.$props.title}`,
+        title: `Aku nemuin promo ${this.$props.title}`,
         description: `${this.$props.description}`,
         twitterUser: "sadiskon",
       },
@@ -133,7 +133,7 @@ export default {
   methods: {
     async copyLink() {
       try {
-        await this.$copyText(`Aku nemuin promo ${this.$props.merchant} - ${this.$props.title}\n`
+        await this.$copyText(`Aku nemuin promo ${this.$props.title}\n`
         +this.$props.url +'\n'
         +this.$props.description
         );
