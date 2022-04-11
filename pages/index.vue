@@ -199,7 +199,7 @@ export default {
   head() {
     const link = 'https://racun.irit.link/'
     const title =
-      "Racun Produk Irit Link di Shopee, Lazada & Toko Online | by Sadiskon";
+      "Racun Produk di Shopee, Lazada & Toko Online | IRIT.LINK";
     const description =
       "Rekomendasi Barang Promo di Shopee, Lazada & Toko Online Lain. Racun Produk by Irit Link Sadiskon, Racun Shopee, Racun Lazada, Racun Irit Link.";
     return {

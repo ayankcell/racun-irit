@@ -62,9 +62,10 @@ export default {
     };
   },
   head() {
-    const title = `${this.racun.title} | Irit.Link by Sadiskon`;
+    const title = `${this.racun.title} | Racun Produk Irit.Link`;
     const link = `https://racun.irit.link/p/${this.racun.slug}/`
-    const description = this.racun.excerpt.replace( /(<([^>]+)>)/ig, '') || this.racun.title;
+    let description = this.racun.excerpt.replace( /(<([^>]+)>)/ig, '') || this.racun.title;
+    description += 'Racun Shopee Irit.Link'
     const image = this.racun.featured_image;
     return {
       title: title,
