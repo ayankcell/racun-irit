@@ -12,6 +12,10 @@ export async function gatherResponse(response) {
    }
 }
 
+//extract tags
+export function getMerchants(tags){
+}
+
 export async function onRequestGet({params}) {
    const baseHost = 'https://public-api.wordpress.com/rest/v1.1/sites/racunproduk.wordpress.com'
    const init = {
@@ -182,36 +186,39 @@ export const template = (racun) => {
          </div>
       </div>
     <script type="text/javascript">
-    u('.racun-nav_toggle').on('click',function(){
-      u('#menuiconopen, #menuiconclose, #menudropdown').toggleClass('hidden')
+    document.addEventListener("DOMContentLoaded", function(event){
+      u('.racun-nav_toggle').on('click',function(){
+         u('#menuiconopen, #menuiconclose, #menudropdown').toggleClass('hidden')
+       })
+       u('.racun-btn_social-modal').on('click',function(){
+          u('#social-modal_wrapper').removeClass('bg-opacity-0, max-h-0').addClass('bg-opacity-50,h-full')
+          u('#social-btns').removeClass('-top-100 ,opacity-0').addClass('top-0 ,opacity-100')
+       })
+       u('.racun-social_close-wrapper, .racun-social_close-btn').on('click',function(){
+         u('#social-modal_wrapper').addClass('bg-opacity-0, max-h-0').removeClass('bg-opacity-50,h-full')
+         u('#social-btns').addClass('-top-100 ,opacity-0').removeClass('top-0 ,opacity-100')
+       })
+       var clipboard = new ClipboardJS('.racun-social_copylink')
+       clipboard.on('success',function(e){
+          u('#copycheck').removeClass('w-0, h-0, bg-opacity-0').addClass('w-20, h-20, bg-opacity-70')
+          setTimeout(function(){
+            u('#copycheck').addClass('w-0, h-0, bg-opacity-0').removeClass('w-20, h-20, bg-opacity-70')
+          },1000)
+       })
+       u('.share-network-whatsapp').on('click',function(){
+          sharePopup('whatsapp')
+       })
+       u('.share-network-twitter').on('click',function(){
+         sharePopup('twitter')
+      })
+      u('.share-network-facebook').on('click',function(){
+         sharePopup('facebook')
+      })
+      u('.share-network-telegram').on('click',function(){
+         sharePopup('telegram')
+      })
     })
-    u('.racun-btn_social-modal').on('click',function(){
-       u('#social-modal_wrapper').removeClass('bg-opacity-0, max-h-0').addClass('bg-opacity-50,h-full')
-       u('#social-btns').removeClass('-top-100 ,opacity-0').addClass('top-0 ,opacity-100')
-    })
-    u('.racun-social_close-wrapper, .racun-social_close-btn').on('click',function(){
-      u('#social-modal_wrapper').addClass('bg-opacity-0, max-h-0').removeClass('bg-opacity-50,h-full')
-      u('#social-btns').addClass('-top-100 ,opacity-0').removeClass('top-0 ,opacity-100')
-    })
-    var clipboard = new ClipboardJS('.racun-social_copylink')
-    clipboard.on('success',function(e){
-       u('#copycheck').removeClass('w-0, h-0, bg-opacity-0').addClass('w-20, h-20, bg-opacity-70')
-       setTimeout(function(){
-         u('#copycheck').addClass('w-0, h-0, bg-opacity-0').removeClass('w-20, h-20, bg-opacity-70')
-       },1000)
-    })
-    u('.share-network-whatsapp').on('click',function(){
-       sharePopup('whatsapp')
-    })
-    u('.share-network-twitter').on('click',function(){
-      sharePopup('twitter')
-   })
-   u('.share-network-facebook').on('click',function(){
-      sharePopup('facebook')
-   })
-   u('.share-network-telegram').on('click',function(){
-      sharePopup('telegram')
-   })
+   
    function sharePopup(network) {
       var url = 'http://racun.irit.link/p/${racun.slug}/'
       var title = '${racun.title}'
