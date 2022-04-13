@@ -45,20 +45,17 @@ export const template = (racun) => {
       <link rel="icon" type="image/x-icon" href="/favicon.png">
       <link rel="dns-prefetch" href="https://fonts.gstatic.com/">
       <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
-      <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Roboto">
-      <link rel="preload" as="script" href="https://cdn.jsdelivr.net/npm/umbrellajs">
       <link rel="dns-prefetch" href="https://www.googletagmanager.com/" >
       <link rel="shortcut icon" href="https://racunproduk.files.wordpress.com/2022/04/favicon.png?resize=64%2C64">
       <link rel="apple-touch-icon" href="https://racunproduk.files.wordpress.com/2022/04/favicon.png?resize=512%2C512" sizes="512x512">
       <script type="text/javascript" async="" src="https://www.googletagmanager.com/gtag/js?id=G-EXD84HQ4LQ&amp;l=dataLayer&amp;cx=c"></script><script async="" src="https://www.googletagmanager.com/gtm.js?id=GTM-K5ZNMV4"></script>
-      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto">
       <noscript >
-         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto">
+         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto&display=swap">
       </noscript>
      <link rel="stylesheet" href="/assets/css/details.css">
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <script >if(!window._gtm_init){window._gtm_init=1;(function(w,n,d,m,e,p){w[d]=(w[d]==1||n[d]=='yes'||n[d]==1||n[m]==1||(w[e]&&w[e][p]&&w[e][p]()))?1:0})(window,navigator,'doNotTrack','msDoNotTrack','external','msTrackingProtectionEnabled');(function(w,d,s,l,x,y){w[x]={};w._gtm_inject=function(i){if(w.doNotTrack||w[x][i])return;w[x][i]=1;w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s);j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i;f.parentNode.insertBefore(j,f);};w[y]('GTM-K5ZNMV4')})(window,document,'script','dataLayer','_gtm_ids','_gtm_inject')}</script><script>(function(){var l=document.createElement('link');l.rel="stylesheet";l.href="https://fonts.googleapis.com/css2?family=Roboto";document.querySelector("head").appendChild(l);})();</script>
-      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto&display=swap">
       <meta name="description" content="${racun.excerpt.replace(/(<([^>]+)>)/ig, '')} Racun Shopee Irit.Link">
       <meta name="og:title" content="${racun.title} | Irit.Link by Sadiskon">
       <meta name="og:description"  content="${racun.excerpt.replace(/(<([^>]+)>)/ig, '')} Racun Shopee Irit.Link">
@@ -69,7 +66,7 @@ export const template = (racun) => {
       <meta name="twitter:card"content="summary">
       <meta name="facebook-domain-verification" content="0l7ou7u0f89oasssyjl0k54qdb3oq0" />
       <link rel="canonical" href="https://racun.irit.link/p/${racun.slug}/">
-      <script src="https://cdn.jsdelivr.net/npm/umbrellajs"></script>
+      <script src="/assets/js/umbrella.js"></script>
       <script src="/assets/js/clipboard.min.js"></script>
    </head>
    <body class="">
