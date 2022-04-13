@@ -3,12 +3,12 @@
     <div class="w-full ft_img_wrap">
       <nuxt-picture
         :src="`${racun.featured_image}?resize=488%2C488`"
-        :alt="racun.title"
+        :alt="`Racun ${getMerchants(racun.tags)} ${racun.title}`"
         height="488"
         width="488"
         fit="cover"
         format="webp"
-        :imgAttrs="{class:'object-cover w-full'}"
+        :imgAttrs="{ class: 'object-cover w-full' }"
       />
     </div>
     <div id="content" class="block items-center">
@@ -51,9 +51,7 @@ import { mapMutations } from "vuex";
 
 export default {
   async asyncData({ $http, store, params }) {
-    const racun = await $http.$get(
-      `/posts/slug:${params.detail}`
-    );
+    const racun = await $http.$get(`/posts/slug:${params.detail}`);
 
     // set view as singular
     store.commit("view/isSingular", true);
@@ -62,16 +60,15 @@ export default {
     };
   },
   head() {
-    const title = `${this.racun.title} | Racun Produk Irit.Link`;
-    const link = `https://racun.irit.link/p/${this.racun.slug}/`
-    let description = this.racun.excerpt.replace( /(<([^>]+)>)/ig, '') || this.racun.title;
-    description += 'Racun Shopee Irit.Link'
+    const title = `Racun ${this.getMerchants(this.racun.tags)} ${this.racun.title} | Racun Produk Irit.Link`;
+    const link = `https://racun.irit.link/p/${this.racun.slug}/`;
+    let description =
+      this.racun.excerpt.replace(/(<([^>]+)>)/gi, "") || this.racun.title;
+    description += "Racun Shopee Irit.Link";
     const image = this.racun.featured_image;
     return {
       title: title,
-      link:[
-        {rel: "canonical", href: link}
-      ],
+      link: [{ rel: "canonical", href: link }],
       meta: [
         { name: "description", hid: "description", content: description },
         { name: "og:title", hid: "og:title", content: title },
@@ -84,13 +81,23 @@ export default {
           content: description,
         },
         { name: "twitter:image", hid: "twitter:image", content: image },
-        { name: "twitter:site", hid: "twitter:site", content: '@sadiskon' },
+        { name: "twitter:site", hid: "twitter:site", content: "@sadiskon" },
         { name: "twitter:card", hid: "twitter:card", content: "summary" },
-        {name:'facebook-domain-verification',content:'0l7ou7u0f89oasssyjl0k54qdb3oq0'}
+        {
+          name: "facebook-domain-verification",
+          content: "0l7ou7u0f89oasssyjl0k54qdb3oq0",
+        },
       ],
     };
   },
   methods: {
+    getMerchants(tags) {
+      let merchants = [];
+      for (const merchant in tags) {
+        merchants.push(merchant);
+      }
+      return merchants.join(", ");
+    },
     ...mapMutations({
       socialShare: "socialshare/open",
     }),
@@ -120,13 +127,13 @@ export default {
 .has-text-align-center {
   text-align: center;
 }
-.wp-block-buttons{
-  margin:1rem auto;
+.wp-block-buttons {
+  margin: 1rem auto;
 }
 .wp-block-button {
   display: block;
   text-align: center;
-  margin:1rem auto;
+  margin: 1rem auto;
 }
 
 .wp-block-button__link {
@@ -154,20 +161,61 @@ export default {
   width: 1.3rem;
   margin-right: 1rem;
 }
-.wp-block-table{
-  margin:0 auto;
+.wp-block-table {
+  margin: 0 auto;
 }
 .racun-content .wp-block-embed {
   margin: 0;
 }
 .racun-content img {
-  display:inline-block;
-  margin: .2rem auto;
+  display: inline-block;
+  margin: 0.2rem auto;
 }
 .racun-content iframe {
   max-width: 100%;
 }
-.wp-block-table{margin:0 0 1em;overflow-x:auto}.wp-block-table table{border-collapse:collapse;width:100%}
-.wp-block-table td{padding:.5rem;}
-.wp-block-table.is-style-stripes{background-color:transparent;border-bottom:1px solid #f0f0f0;border-collapse:inherit;border-spacing:0}.wp-block-table.is-style-stripes tbody tr:nth-child(odd){background-color:#f0f0f0}.wp-block-table.is-style-stripes.has-subtle-light-gray-background-color tbody tr:nth-child(odd){background-color:#f3f4f5}.wp-block-table.is-style-stripes.has-subtle-pale-green-background-color tbody tr:nth-child(odd){background-color:#e9fbe5}.wp-block-table.is-style-stripes.has-subtle-pale-blue-background-color tbody tr:nth-child(odd){background-color:#e7f5fe}.wp-block-table.is-style-stripes.has-subtle-pale-pink-background-color tbody tr:nth-child(odd){background-color:#fcf0ef}.wp-block-table.is-style-stripes td,.wp-block-table.is-style-stripes th{border-color:transparent}
+.wp-block-table {
+  margin: 0 0 1em;
+  overflow-x: auto;
+}
+.wp-block-table table {
+  border-collapse: collapse;
+  width: 100%;
+}
+.wp-block-table td {
+  padding: 0.5rem;
+}
+.wp-block-table.is-style-stripes {
+  background-color: transparent;
+  border-bottom: 1px solid #f0f0f0;
+  border-collapse: inherit;
+  border-spacing: 0;
+}
+.wp-block-table.is-style-stripes tbody tr:nth-child(odd) {
+  background-color: #f0f0f0;
+}
+.wp-block-table.is-style-stripes.has-subtle-light-gray-background-color
+  tbody
+  tr:nth-child(odd) {
+  background-color: #f3f4f5;
+}
+.wp-block-table.is-style-stripes.has-subtle-pale-green-background-color
+  tbody
+  tr:nth-child(odd) {
+  background-color: #e9fbe5;
+}
+.wp-block-table.is-style-stripes.has-subtle-pale-blue-background-color
+  tbody
+  tr:nth-child(odd) {
+  background-color: #e7f5fe;
+}
+.wp-block-table.is-style-stripes.has-subtle-pale-pink-background-color
+  tbody
+  tr:nth-child(odd) {
+  background-color: #fcf0ef;
+}
+.wp-block-table.is-style-stripes td,
+.wp-block-table.is-style-stripes th {
+  border-color: transparent;
+}
 </style>
