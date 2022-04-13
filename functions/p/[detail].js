@@ -108,7 +108,7 @@ export const template = (racun, merchant ) => {
                   <picture>
                      <source srcset="${racun.featured_image}?resize=320%2C320 320w, ${racun.featured_image}?resize=488%2C488 640w, ${racun.featured_image}?resize=488%2C488 768w, ${racun.featured_image}?resize=488%2C488 1024w, ${racun.featured_image}?resize=488%2C488 1280w, ${racun.featured_image}?resize=488%2C488 1536w, ${racun.featured_image}?resize=488%2C488 1536w"
                         sizes="(max-width: 320px) 320px, (max-width: 640px) 640px, (max-width: 768px) 768px, (max-width: 1024px) 1024px, (max-width: 1280px) 1280px, (max-width: 1536px) 1536px, 1536px">
-                     <img src="${racun.featured_image}?resize=488%2C488 width="488" height="488"
+                     <img src="${racun.featured_image}?resize=488%2C488 
                         srcset="${racun.featured_image}?resize=320%2C320 320w, ${racun.featured_image}?resize=488%2C488 640w, ${racun.featured_image}?resize=488%2C488 768w, ${racun.featured_image}?resize=488%2C488 1024w, ${racun.featured_image}?resize=488%2C488 1280w, ${racun.featured_image}?resize=488%2C488 1536w, ${racun.featured_image}?resize=488%2C488 1536w"
                         sizes="(max-width: 320px) 320px, (max-width: 640px) 640px, (max-width: 768px) 768px, (max-width: 1024px) 1024px, (max-width: 1280px) 1280px, (max-width: 1536px) 1536px, 1536px" alt="Racun ${merchant} ${racun.title}" class="object-cover w-full">
                   </picture>
