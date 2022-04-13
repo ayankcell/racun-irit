@@ -14,6 +14,11 @@ export async function gatherResponse(response) {
 
 //extract tags
 export function getMerchants(tags){
+   let merchants = []
+   for(const merchant in tags){
+      merchants.push(merchant)
+   }
+   return merchants.join(', ')
 }
 
 export async function onRequestGet({params}) {
@@ -26,8 +31,9 @@ export async function onRequestGet({params}) {
    try {
       const response = await fetch(`${baseHost}/posts/slug:${params.detail}`, init);
       const results = await gatherResponse(response);
+      const merchants = getMerchants(results.tags)
      
-      return new Response( template(results), { headers: { 'content-type': 'text/html;charset=UTF-8' } });
+      return new Response( template(results, merchants ), { headers: { 'content-type': 'text/html;charset=UTF-8' } });
    } catch (error) {
       return new Response(error.toString(),{headers:{'content-type':'text/plain;charset=UTF-8'}})
    }
@@ -35,11 +41,11 @@ export async function onRequestGet({params}) {
 }
 
 
-export const template = (racun) => {
+export const template = (racun, merchant ) => {
    return `<!doctype html>
 <html lang="id">
    <head>
-      <title>${racun.title} | Racun Produk Irit.Link</title>
+      <title>Racun ${merchant} ${racun.title} | Racun Produk Irit.Link</title>
       <meta charset="utf-8">
       <meta charset="utf-8">
       <meta name="mobile-web-app-capable" content="yes">
@@ -57,6 +63,7 @@ export const template = (racun) => {
          <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto&display=swap">
       </noscript>
      <link rel="stylesheet" href="/assets/css/details.css">
+     <link rel="preload" href="https://fonts.gstatic.com/s/roboto/v29/KFOmCnqEu92Fr1Mu4mxKKTU1Kg.woff2" as="font" type="font/woff2" crossorigin>
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <script >if(!window._gtm_init){window._gtm_init=1;(function(w,n,d,m,e,p){w[d]=(w[d]==1||n[d]=='yes'||n[d]==1||n[m]==1||(w[e]&&w[e][p]&&w[e][p]()))?1:0})(window,navigator,'doNotTrack','msDoNotTrack','external','msTrackingProtectionEnabled');(function(w,d,s,l,x,y){w[x]={};w._gtm_inject=function(i){if(w.doNotTrack||w[x][i])return;w[x][i]=1;w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s);j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i;f.parentNode.insertBefore(j,f);};w[y]('GTM-K5ZNMV4')})(window,document,'script','dataLayer','_gtm_ids','_gtm_inject')}</script><script>(function(){var l=document.createElement('link');l.rel="stylesheet";l.href="https://fonts.googleapis.com/css2?family=Roboto";document.querySelector("head").appendChild(l);})();</script>
       <meta name="description" content="${racun.excerpt.replace(/(<([^>]+)>)/ig, '')} Racun Shopee Irit.Link">
@@ -106,8 +113,7 @@ export const template = (racun) => {
                         sizes="(max-width: 320px) 320px, (max-width: 640px) 640px, (max-width: 768px) 768px, (max-width: 1024px) 1024px, (max-width: 1280px) 1280px, (max-width: 1536px) 1536px, 1536px">
                      <img src="${racun.featured_image}?resize=488%2C488 
                         srcset="${racun.featured_image}?resize=320%2C320 320w, ${racun.featured_image}?resize=488%2C488 640w, ${racun.featured_image}?resize=488%2C488 768w, ${racun.featured_image}?resize=488%2C488 1024w, ${racun.featured_image}?resize=488%2C488 1280w, ${racun.featured_image}?resize=488%2C488 1536w, ${racun.featured_image}?resize=488%2C488 1536w"
-                        sizes="(max-width: 320px) 320px, (max-width: 640px) 640px, (max-width: 768px) 768px, (max-width: 1024px) 1024px, (max-width: 1280px) 1280px, (max-width: 1536px) 1536px, 1536px"
-                        width="488" height="488" alt="Toples  Kue Kering" class="object-cover w-full">
+                        sizes="(max-width: 320px) 320px, (max-width: 640px) 640px, (max-width: 768px) 768px, (max-width: 1024px) 1024px, (max-width: 1280px) 1280px, (max-width: 1536px) 1536px, 1536px" alt="Racun ${merchant} ${racun.title}" class="object-cover w-full">
                   </picture>
                   </div>
                   <div id="content" class="block items-center">
@@ -217,7 +223,7 @@ export const template = (racun) => {
       u('.share-network-telegram').on('click',function(){
          sharePopup('telegram')
       })
-    })
+    }) //  document.addEventListener("DOMContentLoaded")
    
    function sharePopup(network) {
       var url = 'http://racun.irit.link/p/${racun.slug}/'
