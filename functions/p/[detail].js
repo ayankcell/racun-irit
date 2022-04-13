@@ -59,13 +59,10 @@ export const template = (racun, merchant ) => {
       <link rel="dns-prefetch" href="https://www.googletagmanager.com/" >
       <link rel="shortcut icon" href="https://racunproduk.files.wordpress.com/2022/04/favicon.png?resize=64%2C64">
       <link rel="apple-touch-icon" href="https://racunproduk.files.wordpress.com/2022/04/favicon.png?resize=512%2C512" sizes="512x512">
-      <noscript >
-         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto&display=swap">
-      </noscript>
       <link rel="stylesheet" href="/assets/css/details.css">
       <link rel="preload" href="https://fonts.gstatic.com/s/roboto/v29/KFOmCnqEu92Fr1Mu4mxK.woff2" as="font" type="font/woff2" crossorigin>
       <meta name="viewport" content="width=device-width, initial-scale=1">
-      <script >if(!window._gtm_init){window._gtm_init=1;(function(w,n,d,m,e,p){w[d]=(w[d]==1||n[d]=='yes'||n[d]==1||n[m]==1||(w[e]&&w[e][p]&&w[e][p]()))?1:0})(window,navigator,'doNotTrack','msDoNotTrack','external','msTrackingProtectionEnabled');(function(w,d,s,l,x,y){w[x]={};w._gtm_inject=function(i){if(w.doNotTrack||w[x][i])return;w[x][i]=1;w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s);j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i;f.parentNode.insertBefore(j,f);};w[y]('GTM-K5ZNMV4')})(window,document,'script','dataLayer','_gtm_ids','_gtm_inject')}</script><script>(function(){var l=document.createElement('link');l.rel="stylesheet";l.href="https://fonts.googleapis.com/css2?family=Roboto";document.querySelector("head").appendChild(l);})();</script>
+      <script >if(!window._gtm_init){window._gtm_init=1;(function(w,n,d,m,e,p){w[d]=(w[d]==1||n[d]=='yes'||n[d]==1||n[m]==1||(w[e]&&w[e][p]&&w[e][p]()))?1:0})(window,navigator,'doNotTrack','msDoNotTrack','external','msTrackingProtectionEnabled');(function(w,d,s,l,x,y){w[x]={};w._gtm_inject=function(i){if(w.doNotTrack||w[x][i])return;w[x][i]=1;w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s);j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i;f.parentNode.insertBefore(j,f);};w[y]('GTM-K5ZNMV4')})(window,document,'script','dataLayer','_gtm_ids','_gtm_inject')}</script>
       <meta name="description" content="${racun.excerpt.replace(/(<([^>]+)>)/ig, '')} Racun Shopee Irit.Link">
       <meta name="og:title" content="${racun.title} | Irit.Link by Sadiskon">
       <meta name="og:description"  content="${racun.excerpt.replace(/(<([^>]+)>)/ig, '')} Racun Shopee Irit.Link">
