@@ -42,7 +42,7 @@
     <SocialShare
       :title="racun.title"
       :description="racun.excerpt.replace(/<[^>]*>/g, '') || racun.title"
-      :url="`https://racun.irit.link/p/${racun.slug}/`"
+      :url="`https://irit.link/p/${racun.slug}/`"
     />
   </div>
 </template>
@@ -61,7 +61,7 @@ export default {
   },
   head() {
     const title = `Racun ${this.getMerchants(this.racun.tags)} ${this.racun.title} | Racun Produk Irit.Link`;
-    const link = `https://racun.irit.link/p/${this.racun.slug}/`;
+    const link = `https://irit.link/p/${this.racun.slug}/`;
     let description =
       this.racun.excerpt.replace(/(<([^>]+)>)/gi, "") || this.racun.title;
     description += "Racun Shopee Irit.Link";

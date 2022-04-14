@@ -197,7 +197,7 @@ export default {
     }
   },
   head() {
-    const link = 'https://racun.irit.link/'
+    const link = 'https://irit.link/'
     const title =
       "Racun Produk di Shopee, Lazada & Toko Online | IRIT.LINK";
     const description =
