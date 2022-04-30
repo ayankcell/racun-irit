@@ -33,7 +33,7 @@ export async function onRequestGet({params}) {
       const results = await gatherResponse(response);
       const merchants = getMerchants(results.tags)
      
-      return new Response( template(results, merchants ).replace(/\s+/g,' '), { headers: { 'content-type': 'text/html;charset=UTF-8' } });
+      return new Response( template(results, merchants ), { headers: { 'content-type': 'text/html;charset=UTF-8' } });
    } catch (error) {
       return new Response(error.toString(),{headers:{'content-type':'text/plain;charset=UTF-8'}})
    }
