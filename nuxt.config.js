@@ -14,7 +14,7 @@ export default {
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'description', name: 'description', content: '' },
-      {name :'facebook-domain-verification', content: '66z0e2yoz3uw7o0pi3uyzjam0myme2'}
+      {name :'facebook-domain-verification', content: '5dosee70wrerh1vequfhi3go6fhrr6'}
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.png' }
