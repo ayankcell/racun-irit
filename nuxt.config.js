@@ -19,18 +19,18 @@ export default {
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.png' }
     ],
-    script:[
-      {
-        src: 'https://sdki.truepush.com/sdk/v2.0.3/app.js',
-        body: true,
-        async: true
-      },
-      {
-        src: '/assets/js/truepush.js',
-        body: true,
-        async: true
-      }
-    ]
+    // script:[
+    //   {
+    //     src: 'https://sdki.truepush.com/sdk/v2.0.3/app.js',
+    //     body: true,
+    //     async: true
+    //   },
+    //   {
+    //     src: '/assets/js/truepush.js',
+    //     body: true,
+    //     async: true
+    //   }
+    // ]
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
@@ -48,7 +48,7 @@ export default {
   buildModules: [
     'nuxt-windicss',
     '@nuxtjs/google-fonts',
-    '@nuxtjs/pwa',
+    // '@nuxtjs/pwa',
     'nuxt-delay-hydration'
   ],
   // Delay Hydration Config
@@ -70,18 +70,18 @@ export default {
   },
   //firebase Config:
   //Progressive Web App
-  pwa: {
-    manifest: {
-      name: 'Racun Diskon',
-      lang: 'id',
-      short_name: 'Racun Diskon',
-      useWebmanifestExtension: false
-    },
+  // pwa: {
+  //   manifest: {
+  //     name: 'Racun Diskon',
+  //     lang: 'id',
+  //     short_name: 'Racun Diskon',
+  //     useWebmanifestExtension: false
+  //   },
     
-  },
-  workbox:{
-    importScripts: ['swtruepush.js']
-  },
+  // },
+  // workbox:{
+  //   importScripts: ['swtruepush.js']
+  // },
   // Google Tag Manager
   gtm: {
     id: 'GTM-K5ZNMV4'
