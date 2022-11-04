@@ -1,9 +1,7 @@
 <template>
   <div class="max-w-screen-sm mx-auto bg-white h-screen flex flex-col justify-center items-center">
-    <h1 class="text-xl font-semibold py-3">Acak Angka</h1>
-    <p class="p-2 my-4 text-center w-full">
-        Dapatkan saldo ShopeePay <strong>Rp100.000</strong> untuk 10 pemenang.  Yuk mulai!
-    </p>
+    <h1 class="text-xl font-semibold py-3 my-4">Acak Angka</h1>
+   
     <button @click="putar()" 
     class="w-[300px] h-[300px] flex flex-col justify-center items-center rounded-full bg-yellow-200 p-5">
     <span v-if="ranNum" class="text-sm">Angka Kamu:</span>
