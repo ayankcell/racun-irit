@@ -1,19 +1,26 @@
 <template>
-  <div class="max-w-screen-sm mx-auto bg-white h-screen flex flex-col justify-center items-center">
+  <div
+    class="max-w-screen-sm mx-auto bg-white h-screen flex flex-col justify-center items-center"
+  >
     <h1 class="text-xl font-semibold py-3 my-4">Acak Angka</h1>
-   
-    <button @click="putar()" 
-    class="w-[300px] h-[300px] flex flex-col justify-center items-center rounded-full bg-yellow-200 p-5">
-    <span v-if="ranNum" class="text-sm">Angka Kamu:</span>
-    <span v-if="ranNum" class="text-6xl font-semibold text-blue-700">
-        {{ranNum}}
-    </span>
-    <span v-if="!ranNum" class="text-2xl font-semibold text-dark-300">
-        Tap Untuk Mulai Mengacak
-    </span>
+
+    <button
+      @click="putar()"
+      class="w-[300px] h-[300px] rounded-full bg-yellow-200 p-5"
+    >
+      <div class="w-full h-full flex flex-col justify-center items-center bg-yellow-300 rounded-full">
+        <span v-if="ranNum" class="text-sm">Angka Kamu:</span>
+        <span v-if="ranNum" class="text-6xl font-semibold text-blue-700">
+          {{ ranNum }}
+        </span>
+        <span v-if="!ranNum" class="text-2xl font-semibold text-dark-100">
+          Tekan Untuk Mulai
+        </span>
+      </div>
     </button>
     <p class="p-2 my-4 text-center w-full">
-        Tulis angka yang tampil, di kolom komentar postingan Channel Telegram Sadiskon
+      Tulis angka yang tampil, di kolom komentar postingan Channel Telegram
+      Sadiskon
     </p>
   </div>
 </template>
@@ -28,7 +35,7 @@ export default {
       let MyVar = setInterval(this.rolldice, 40);
       setTimeout(() => {
         clearInterval(MyVar);
-      }, 2300);
+      }, 2000);
     },
 
     rolldice() {
