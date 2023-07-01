@@ -19,8 +19,7 @@
       </div>
     </button>
     <p class="p-2 my-4 text-center w-full">
-      Tulis angka yang tampil, di kolom komentar postingan Channel Telegram
-      Sadiskon
+     EARLY BIRD RAHASIA OCLP
     </p>
   </div>
 </template>
@@ -39,7 +38,7 @@ export default {
     },
 
     rolldice() {
-      let ranNum = Math.floor(1 + Math.random() * 999);
+      let ranNum = Math.floor(1 + Math.random() * 49);
       this.ranNum = ranNum;
     },
   },
