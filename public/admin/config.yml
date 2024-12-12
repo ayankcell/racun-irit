@@ -1,0 +1,19 @@
+backend:
+  name: github
+  repo: ayankcell/racun-irit
+  branch: main
+  base_url: "https://kurajin-decapauth.pages.dev/"
+  auth_endpoint: "/api/auth/login/racun-irit"
+  use_graphql: true
+media_folder: "public/img"
+public_folder: "/img"
+collections:
+  - name: "redir" # Used in routes, e.g., /admin/collections/blog
+    label: "Redirection" # Used in the UI
+    folder: "content" # The path to the folder where the documents are stored
+    format: "frontmatter"
+    create: true # Allow users to create new documents in this collection
+    slug: "{{slug}}" # Filename template, e.g., YYYY-MM-DD-title.md
+    fields: # The fields for each document, usually in front matter
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Target URL", name: "targetUrl", widget: "string" }
